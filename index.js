@@ -35,6 +35,7 @@ app.post("/webhook", (req, res) => {
 
 // Accepts GET requests at the /webhook endpoint
 app.get("/webhook", (req, res) => {
+    console.log("trying to get..")
   /** UPDATE YOUR VERIFY TOKEN **/
   const VERIFY_TOKEN = "ZENIKA_ZENBOT_1234";
 
