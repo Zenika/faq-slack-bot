@@ -1,5 +1,7 @@
 "use strict";
 
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
 // Imports dependencies and set up http server
 const express = require("express"),
   body_parser = require("body-parser"),
@@ -34,7 +36,7 @@ app.post("/webhook", (req, res) => {
 // Accepts GET requests at the /webhook endpoint
 app.get("/webhook", (req, res) => {
   /** UPDATE YOUR VERIFY TOKEN **/
-  const VERIFY_TOKEN = "<YOUR_VERIFY_TOKEN>";
+  const VERIFY_TOKEN = "ZENIKA_ZENBOT_1234";
 
   // Parse params from the webhook verification request
   let mode = req.query["hub.mode"];
