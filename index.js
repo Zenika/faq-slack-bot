@@ -23,6 +23,10 @@ app.post("/webhook", (req, res) => {
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
+
+      // Get the sender PSID
+      let sender_psid = webhook_event.sender.id;
+      console.log("Sender PSID: " + sender_psid);
     });
 
     // Return a '200 OK' response to all events
@@ -35,7 +39,7 @@ app.post("/webhook", (req, res) => {
 
 // Accepts GET requests at the /webhook endpoint
 app.get("/webhook", (req, res) => {
-    console.log("trying to get..")
+  console.log("trying to get..");
   /** UPDATE YOUR VERIFY TOKEN **/
   const VERIFY_TOKEN = "ZENIKA_ZENBOT_1234";
 
