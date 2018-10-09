@@ -14,11 +14,7 @@ function handleMessage(sender_psid, received_message) {
     received_message.text;
     //TODO search for the query string
 
-    message = Generic("Titre", "Sous-titre", "https://lol");
-
-    /* message = {
-      text: `TEST`
-    }; */
+    message = Generic("Titre", "Sous-titre");
   } else if (received_message.attachments) {
     message = {
       text: `Désolé! Je ne prend pas en charge les pièces jointes pour le moment.`
