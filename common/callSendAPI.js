@@ -22,7 +22,7 @@ function callSendAPI(sender_psid, message) {
     },
     (err, res, body) => {
       if (!err) {
-        console.log("message sent !");
+        console.log("message sent :", JSON.stringify(request_body));
       } else {
         console.error("Unable to send message:" + err);
       }

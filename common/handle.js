@@ -3,6 +3,7 @@ const callSendAPI = require("./callSendAPI"),
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
+  console.log("handleMessage", received_message);
   let message;
 
   // Checks if the message contains text
@@ -26,6 +27,7 @@ function handleMessage(sender_psid, received_message) {
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
+  console.log("handlePostback", received_message);
   let message;
 
   // Get the payload for the postback
