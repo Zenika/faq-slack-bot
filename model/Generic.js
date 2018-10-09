@@ -17,7 +17,7 @@ function Generic(title, subtitle, image_url) {
               },
               {
                 type: "postback",
-                title: "Je n'ai pas eu la réponse!",
+                title: "Ce n'est pas ça!",
                 payload: "no"
               }
             ]
