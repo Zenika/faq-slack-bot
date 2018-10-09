@@ -1,4 +1,4 @@
-function Generic(title, subtitle, image_url) {
+function SearchResult(title, subtitle, image_url) {
   return {
     attachment: {
       type: "template",
@@ -28,4 +28,4 @@ function Generic(title, subtitle, image_url) {
   };
 }
 
-module.exports = Generic;
+module.exports = SearchResult;
