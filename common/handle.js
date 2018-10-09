@@ -1,4 +1,5 @@
 const callSendAPI = require("./callSendAPI"),
+  UnsatisfactorySearch = require("../model/UnsatisfactorySearch"),
   SearchResult = require("../model/SearchResult");
 
 // Handles messages events
@@ -37,8 +38,9 @@ function handlePostback(sender_psid, received_postback) {
   if (payload === "yes") {
     message = { text: "Ravi d'avoir pu t'aider!" };
   } else if (payload === "no") {
-    message = { text: "Désolé, essaie de reformuler ta question." };
-    //TODO add button go to the FAQ or Go to slack or fb to ask a question
+    message = UnsatisfactorySearch();
+  } else if (payload === "retry_search") {
+    message = { text: "En quoi puis-je t'aider ?" };
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, message);
