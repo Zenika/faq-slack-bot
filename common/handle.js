@@ -1,5 +1,6 @@
 const callSendAPI = require("./callSendAPI"),
   UnsatisfactorySearch = require("../model/UnsatisfactorySearch"),
+  SatisfactorySearch = require("../model/SatisfactorySearch"),
   SearchResult = require("../model/SearchResult");
 
 // Handles messages events
@@ -36,11 +37,11 @@ function handlePostback(sender_psid, received_postback) {
 
   // Set the response based on the postback payload
   if (payload === "yes") {
-    message = { text: "Ravi d'avoir pu t'aider!" };
+    message = SatisfactorySearch();
   } else if (payload === "no") {
     message = UnsatisfactorySearch();
-  } else if (payload === "retry_search") {
-    message = { text: "En quoi puis-je t'aider ?" };
+  } else if (payload === "start_search") {
+    message = { text: "Que recherches tu ?" };
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, message);

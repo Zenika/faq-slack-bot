@@ -1,20 +1,15 @@
-function UnsatisfactorySearch() {
+function SatisfactorySearch() {
   return {
     attachment: {
       type: "template",
       payload: {
         template_type: "button",
-        text: "Arghh! Je te propose de faire ça:",
+        text: "Super! Ravi de t'avoir aidé.",
         buttons: [
           {
             type: "postback",
-            title: "Reformuler la recherche",
+            title: "Nouvelle la recherche",
             payload: "start_search"
-          },
-          {
-            type: "postback",
-            title: "Partager sur Workplace",
-            payload: "share_search"
           },
           {
             type: "web_url",
@@ -27,4 +22,4 @@ function UnsatisfactorySearch() {
   };
 }
 
-module.exports = UnsatisfactorySearch;
+module.exports = SatisfactorySearch;
