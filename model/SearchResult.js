@@ -1,4 +1,4 @@
-function SearchResult(title, subtitle, image_url) {
+function SearchResult(title, subtitle, action_url, image_url) {
   return {
     attachment: {
       type: "template",
@@ -9,6 +9,12 @@ function SearchResult(title, subtitle, image_url) {
             title: title,
             subtitle: subtitle,
             image_url: image_url,
+            default_action: {
+              type: "web_url",
+              url: action_url,
+              messenger_extensions: false,
+              webview_height_ratio: "tall"
+            },
             buttons: [
               {
                 type: "postback",
