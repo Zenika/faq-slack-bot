@@ -27,7 +27,7 @@ function handleMessage(sender_psid, received_message) {
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
-  console.log("handlePostback", received_message);
+  console.log("handlePostback", received_postback);
   let message;
 
   // Get the payload for the postback
