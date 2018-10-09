@@ -8,7 +8,7 @@ function Generic(title, subtitle, image_url) {
           {
             title: title,
             subtitle: subtitle,
-            image_url: image_url,
+            
             buttons: [
               {
                 type: "postback",
