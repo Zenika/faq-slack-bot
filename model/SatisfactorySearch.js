@@ -8,7 +8,7 @@ function SatisfactorySearch() {
         buttons: [
           {
             type: "postback",
-            title: "Nouvelle la recherche",
+            title: "Nouvelle recherche",
             payload: "start_search"
           },
           {

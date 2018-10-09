@@ -42,6 +42,8 @@ function handlePostback(sender_psid, received_postback) {
     message = UnsatisfactorySearch();
   } else if (payload === "start_search") {
     message = { text: "Que recherches tu ?" };
+  } else if (payload === "share_search") {
+    //TODO
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, message);
