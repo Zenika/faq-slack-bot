@@ -52,7 +52,7 @@ function handlePostback(sender_psid, received_postback) {
       message = { text: "Que recherches tu ?" };
       break;
     case "share_search":
-      message = { text: "TODO" };
+      message = { text: "TODO"+context };
       break;
     default:
       message = { text: "Désolé! Je n'ai pas compris.." }; //Should Never Occur
