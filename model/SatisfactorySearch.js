@@ -9,7 +9,7 @@ function SatisfactorySearch(context) {
           {
             type: "postback",
             title: "Nouvelle recherche",
-            payload: PostbackPayload(context, "start_search")
+            payload: PostbackPayload(null, "start_search")
           },
           {
             type: "web_url",

@@ -21,7 +21,7 @@ function UnsatisfactorySearch(context) {
           {
             type: "web_url",
             title: "Accéder à la FAQ",
-            url: "https://faq.zenika.com/"
+            url: `https://faq.zenika.com/?q=${context}`
           }
         ]
       }
