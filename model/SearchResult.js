@@ -1,4 +1,6 @@
-function SearchResult(title, subtitle, action_url, image_url) {
+const PostbackPayload = require("./PostbackPayload");
+
+function SearchResult(context, title, subtitle, action_url, image_url) {
   return {
     attachment: {
       type: "template",
@@ -19,12 +21,12 @@ function SearchResult(title, subtitle, action_url, image_url) {
               {
                 type: "postback",
                 title: "Merci!",
-                payload: "yes"
+                payload: PostbackPayload(context, "thank")
               },
               {
                 type: "postback",
                 title: "Ce n'est pas ça!",
-                payload: "no"
+                payload: PostbackPayload(context, "damn")
               }
             ]
           }

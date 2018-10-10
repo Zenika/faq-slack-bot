@@ -13,10 +13,15 @@ function handleMessage(sender_psid, received_message) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
 
-    received_message.text;
+    const question = received_message.text;
     //TODO search for the query string
 
-    message = SearchResult("Titre", "Sous-titre", "https://faq.zenika.com/");
+    message = SearchResult(
+      question,
+      "Titre",
+      "Sous-titre",
+      "https://faq.zenika.com/"
+    );
   } else if (received_message.attachments) {
     message = {
       text: `Désolé! Je ne prend pas en charge les pièces jointes pour le moment.`
@@ -33,18 +38,26 @@ function handlePostback(sender_psid, received_postback) {
   let message;
 
   // Get the payload for the postback
-  let payload = received_postback.payload;
+  let { context, action, data } = JSON.parse(received_postback.payload);
 
-  // Set the response based on the postback payload
-  if (payload === "yes") {
-    message = SatisfactorySearch();
-  } else if (payload === "no") {
-    message = UnsatisfactorySearch();
-  } else if (payload === "start_search") {
-    message = { text: "Que recherches tu ?" };
-  } else if (payload === "share_search") {
-    //TODO
+  // Set the response based on the postback payload's action
+  switch (action) {
+    case "thank":
+      message = SatisfactorySearch(context, data);
+      break;
+    case "damn":
+      message = UnsatisfactorySearch(context, data);
+      break;
+    case "start_search":
+      message = { text: "Que recherches tu ?" };
+      break;
+    case "share_search":
+      message = { text: "TODO" };
+      break;
+    default:
+      message = { text: "Désolé! Je n'ai pas compris.." }; //Should Never Occur
   }
+
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, message);
 }
