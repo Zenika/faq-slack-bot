@@ -15,12 +15,12 @@ function UnsatisfactorySearch(context) {
           },
           {
             type: "web_url",
-            title: "Accéder à la FAQ",
+            title: "Partager sur Workplace",
             url: `https://work.facebook.com/sharer.php?display=popup&u=https://faq.zenika.com/?q=${context}`
           },
           {
             type: "web_url",
-            title: "Accéder à la FAQ",
+            title: "Rechercher dans FAQ",
             url: `https://faq.zenika.com/?q=${context}`
           }
         ]
