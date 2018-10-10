@@ -1,6 +1,7 @@
 const callSendAPI = require("./callSendAPI"),
   UnsatisfactorySearch = require("../model/UnsatisfactorySearch"),
   SatisfactorySearch = require("../model/SatisfactorySearch"),
+  Caroussel = require("../model/Caroussel"),
   SearchResult = require("../model/SearchResult");
 
 // Handles messages events
@@ -14,14 +15,14 @@ function handleMessage(sender_psid, received_message) {
     // will be added to the body of our request to the Send API
 
     const question = received_message.text;
+    
     //TODO search for the query string
 
-    message = SearchResult(
-      question,
-      "Titre",
-      "Sous-titre",
-      "https://faq.zenika.com/"
-    );
+    message = Caroussel([
+      SearchResult(question, "Titre", "Sous-titre", "https://faq.zenika.com/"),
+      SearchResult(question, "Titre", "Sous-titre", "https://faq.zenika.com/"),
+      SearchResult(question, "Titre", "Sous-titre", "https://faq.zenika.com/")
+    ]);
   } else if (received_message.attachments) {
     message = {
       text: `Désolé! Je ne prend pas en charge les pièces jointes pour le moment.`
