@@ -1,3 +1,5 @@
+const PostbackPayload = require("./PostbackPayload");
+
 function SatisfactorySearch(context) {
   return {
     attachment: {

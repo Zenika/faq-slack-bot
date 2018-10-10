@@ -16,7 +16,7 @@ function UnsatisfactorySearch(context) {
           {
             type: "web_url",
             title: "Partager sur Workplace",
-            url: `https://work.facebook.com/sharer.php?display=popup&u=https://faq.zenika.com/?q=${context}`
+            url: `https://work.facebook.com/sharer.php?display=popup&u=https://faq.zenika.com/?q='${context}'`
           },
           {
             type: "web_url",
