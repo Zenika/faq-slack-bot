@@ -51,9 +51,6 @@ function handlePostback(sender_psid, received_postback) {
     case "start_search":
       message = { text: "Que recherches tu ?" };
       break;
-    case "share_search":
-      message = { text: "TODO"+context };
-      break;
     default:
       message = { text: "Désolé! Je n'ai pas compris.." }; //Should Never Occur
   }

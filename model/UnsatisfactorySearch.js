@@ -14,9 +14,9 @@ function UnsatisfactorySearch(context) {
             payload: PostbackPayload(context, "start_search")
           },
           {
-            type: "postback",
-            title: "Partager sur Workplace",
-            payload: PostbackPayload(context, "share_search")
+            type: "web_url",
+            title: "Accéder à la FAQ",
+            url: `https://work.facebook.com/sharer.php?display=popup&u=https://faq.zenika.com/?q=${context}`
           },
           {
             type: "web_url",
