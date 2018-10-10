@@ -1,4 +1,6 @@
-function UnsatisfactorySearch() {
+const PostbackPayload = require("./PostbackPayload");
+
+function UnsatisfactorySearch(context) {
   return {
     attachment: {
       type: "template",
@@ -9,12 +11,12 @@ function UnsatisfactorySearch() {
           {
             type: "postback",
             title: "Reformuler la recherche",
-            payload: "start_search"
+            payload: PostbackPayload(context, "start_search")
           },
           {
             type: "postback",
             title: "Partager sur Workplace",
-            payload: "share_search"
+            payload: PostbackPayload(context, "share_search")
           },
           {
             type: "web_url",

@@ -38,15 +38,15 @@ function handlePostback(sender_psid, received_postback) {
   let message;
 
   // Get the payload for the postback
-  let { context, action, data } = JSON.parse(received_postback.payload);
+  let { context, action } = JSON.parse(received_postback.payload);
 
   // Set the response based on the postback payload's action
   switch (action) {
     case "thank":
-      message = SatisfactorySearch(context, data);
+      message = SatisfactorySearch(context);
       break;
     case "damn":
-      message = UnsatisfactorySearch(context, data);
+      message = UnsatisfactorySearch(context);
       break;
     case "start_search":
       message = { text: "Que recherches tu ?" };

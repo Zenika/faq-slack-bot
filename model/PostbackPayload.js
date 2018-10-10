@@ -1,8 +1,7 @@
-function PostbackPayload(context, action, data) {
+function PostbackPayload(context, action) {
   return JSON.stringify({
     context: context,
-    action: action,
-    data: data
+    action: action
   });
 }
 

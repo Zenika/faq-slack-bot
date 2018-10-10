@@ -1,4 +1,4 @@
-function SatisfactorySearch() {
+function SatisfactorySearch(context) {
   return {
     attachment: {
       type: "template",
@@ -9,7 +9,7 @@ function SatisfactorySearch() {
           {
             type: "postback",
             title: "Nouvelle recherche",
-            payload: "start_search"
+            payload: PostbackPayload(context, "start_search")
           },
           {
             type: "web_url",
