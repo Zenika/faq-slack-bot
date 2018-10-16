@@ -86,10 +86,10 @@ app.post("/slackhook", (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
 
-  console.log("slack int"+body);
+  console.log("slack int", body);
 
   // Check the webhook event is from a Page subscription
-  if (body.object === "page") {
+  /* if (body.object === "page") {
     // Iterate over each entry - there may be multiple if batched
     body.entry.forEach(function(entry) {
       // Get the webhook event. entry.messaging is an array, but
@@ -115,5 +115,5 @@ app.post("/slackhook", (req, res) => {
   } else {
     // Return a '404 Not Found' if event is not from a page subscription
     res.sendStatus(404);
-  }
+  } */
 });
