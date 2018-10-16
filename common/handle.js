@@ -15,9 +15,9 @@ function handleMessage(sender_psid, received_message) {
     // will be added to the body of our request to the Send API
 
     const question = received_message.text;
-    
-    //TODO search for the query string
 
+    //TODO search for the query string
+    //TODO limit to 9 results + 1 généric result(link to FAQ)
     message = Caroussel([
       SearchResult(question, "Titre", "Sous-titre", "https://faq.zenika.com/"),
       SearchResult(question, "Titre", "Sous-titre", "https://faq.zenika.com/"),
