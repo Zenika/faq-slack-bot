@@ -123,7 +123,7 @@ app.post("/slackhook", (req, res) => {
     // Return a '404 Not Found' if event is not from a page subscription
     res.status(200).send({
       response_type: "ephemeral",
-      text: "La commande /faq doit toujours être suivie d'un texte de recherche."
+      text: "La commande /faq doit toujours être suivie d'un texte de recherche. \n ex: /faq comment faire une note de frais"
     });
   }
 });
