@@ -121,7 +121,7 @@ app.post("/slackhook", (req, res) => {
     res.status(200).send("EVENT_RECEIVED");
   } else {
     // Return a '404 Not Found' if event is not from a page subscription
-    res.sendStatus(200).send({
+    res.status(200).send({
       response_type: "ephemeral",
       text: "La commande /faq doit toujours être suivie d'un texte de recherche."
     });
