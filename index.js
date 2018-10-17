@@ -5,7 +5,9 @@ const express = require("express"),
   body_parser = require("body-parser"),
   { handleMessage, handlePostback } = require("./messenger/common/handle"),
   { handleCommand } = require("./slack/common/handle"),
-  app = express().use(body_parser.json()); // creates express http server
+  app = express() // creates express http server
+    .use(body_parser.json()) // support json encoded bodies
+    .use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
@@ -102,6 +104,8 @@ app.post("/slackhook", (req, res) => {
     // Get the sender PSID
     let user_id = body.user_id;
     console.log("User_ID: " + user_id);
+
+    console.log("body.text: " + body.text);
 
     // pass the event to the appropriate handler function
     handleCommand(data);
