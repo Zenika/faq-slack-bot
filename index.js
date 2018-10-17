@@ -88,16 +88,10 @@ app.post("/webhook", (req, res) => {
 app.post("/slackhook", (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
-  let query = req.query;
 
-  console.log("slackhook b", body);
-  console.log("slackhook b txt", body.text);
-
-  console.log("slackhook q", query);
-  console.log("slackhook q txt", query.text);
-
-  console.log("slackhook str b", JSON.stringify(body));
-  console.log("slackhook str q", JSON.stringify(query));
+  console.log("\n\n--> slackhook b", body);
+  console.log("\n\n--> slackhook b txt", body.text);
+  console.log("\n\n--> slackhook str b", JSON.stringify(body));
 
   // Check if the command is sent with a search text.
   if (body.text) {
@@ -108,7 +102,7 @@ app.post("/slackhook", (req, res) => {
     console.log("body.text: " + body.text);
 
     // pass the event to the appropriate handler function
-    handleCommand(data);
+    //handleCommand(body);
 
     // Return a '200 OK' response to all events
     res.status(200).send({
