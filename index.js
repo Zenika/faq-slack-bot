@@ -86,8 +86,9 @@ app.post("/slackhook", (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
 
-  console.log("slack int", req);
-  console.log("slack int", JSON.stringify(req.body));
+  console.log("slackhook", body);
+
+  console.log("slackhook str", JSON.stringify(body));
 
   // Check the webhook event is from a Page subscription
   /* if (body.object === "page") {
