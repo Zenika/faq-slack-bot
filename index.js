@@ -91,12 +91,12 @@ app.post("/slackhook", (req, res) => {
   console.log("slackhook b txt", body.text);
   console.log("slackhook q", query);
   console.log("slackhook q txt", query.text);
-  
+
   console.log("slackhook str b", JSON.stringify(body));
   console.log("slackhook str q", JSON.stringify(query));
 
   // Check the webhook event is from a Page subscription
-  if (body.object === "page") {
+  if (body.text) {
     // Iterate over each entry - there may be multiple if batched
     body.entry.forEach(function(entry) {
       // Get the webhook event. entry.messaging is an array, but
@@ -122,8 +122,8 @@ app.post("/slackhook", (req, res) => {
   } else {
     // Return a '404 Not Found' if event is not from a page subscription
     res.sendStatus(200).send({
-        "response_type": "ephemeral",
-        "text": "Sorry, that didn't work. Please try again."
-      });
+      response_type: "ephemeral",
+      text: "La commande /faq doit toujours être suivie d'un texte de recherche."
+    });
   }
 });
