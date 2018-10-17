@@ -92,7 +92,6 @@ app.post("/slackhook", (req, res) => {
   console.log("slackhook q", query);
   console.log("slackhook q txt", query.text);
   
-
   console.log("slackhook str b", JSON.stringify(body));
   console.log("slackhook str q", JSON.stringify(query));
 
@@ -122,6 +121,9 @@ app.post("/slackhook", (req, res) => {
     res.status(200).send("EVENT_RECEIVED");
   } else {
     // Return a '404 Not Found' if event is not from a page subscription
-    res.sendStatus(404);
+    res.sendStatus(200).send({
+        "response_type": "ephemeral",
+        "text": "Sorry, that didn't work. Please try again."
+      });
   }
 });
