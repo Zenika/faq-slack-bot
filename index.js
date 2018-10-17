@@ -3,7 +3,8 @@
 // Imports dependencies and set up http server
 const express = require("express"),
   body_parser = require("body-parser"),
-  { handleMessage, handlePostback } = require("./common/handle"),
+  { handleMessage, handlePostback } = require("./messenger/common/handle"),
+  { handleCommand } = require("./slack/common/handle"),
   app = express().use(body_parser.json()); // creates express http server
 
 // Sets server port and logs message on success
@@ -89,41 +90,33 @@ app.post("/slackhook", (req, res) => {
 
   console.log("slackhook b", body);
   console.log("slackhook b txt", body.text);
+
   console.log("slackhook q", query);
   console.log("slackhook q txt", query.text);
 
   console.log("slackhook str b", JSON.stringify(body));
   console.log("slackhook str q", JSON.stringify(query));
 
-  // Check the webhook event is from a Page subscription
+  // Check if the command is sent with a search text.
   if (body.text) {
-    // Iterate over each entry - there may be multiple if batched
-    body.entry.forEach(function(entry) {
-      // Get the webhook event. entry.messaging is an array, but
-      // will only ever contain one event, so we get index 0
-      let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
+    // Get the sender PSID
+    let user_id = body.user_id;
+    console.log("User_ID: " + user_id);
 
-      // Get the sender PSID
-      let sender_psid = webhook_event.sender.id;
-      console.log("Sender PSID: " + sender_psid);
-
-      // Check if the event is a message or postback and
-      // pass the event to the appropriate handler function
-      if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);
-      } else if (webhook_event.postback) {
-        handlePostback(sender_psid, webhook_event.postback);
-      }
-    });
+    // pass the event to the appropriate handler function
+    handleCommand(data);
 
     // Return a '200 OK' response to all events
-    res.status(200).send("EVENT_RECEIVED");
-  } else {
-    // Return a '404 Not Found' if event is not from a page subscription
     res.status(200).send({
       response_type: "ephemeral",
-      text: "La commande /faq doit toujours être suivie d'un texte de recherche. \n ex: /faq comment faire une note de frais"
+      text: "Search results"
+    });
+  } else {
+    // Use a JSON payload to communicate the error back to the user as an ephemeral message.
+    res.status(200).send({
+      response_type: "ephemeral",
+      text:
+        "La commande /faq doit toujours être suivie d'un texte de recherche. \n ex: /faq comment faire une note de frais"
     });
   }
 });
