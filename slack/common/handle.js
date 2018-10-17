@@ -1,12 +1,10 @@
-const callSendAPI = require("./callSendAPI");
-
-// Handles messages events
+// Handles command events
 function handleCommand({ question: text, ...meta }) {
   console.log("handleCommand", text, meta);
 
   let message = "TEST";
 
-  // Checks if the message contains text
+  // Checks if the question exists
   if (question) {
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
