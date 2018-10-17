@@ -88,7 +88,9 @@ app.post("/slackhook", (req, res) => {
   let query = req.query;
 
   console.log("slackhook b", body);
+  console.log("slackhook b txt", body.text);
   console.log("slackhook q", query);
+  console.log("slackhook q txt", query.text);
   
 
   console.log("slackhook str b", JSON.stringify(body));
