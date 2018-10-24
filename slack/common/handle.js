@@ -1,6 +1,6 @@
 // Handles command events
 function handleCommand({ question: text, ...meta }) {
-  console.log("handleCommand", text, meta);
+  console.log("handleCommand", "text:", text, "meta:", meta);
 
   let message = "TEST";
 
