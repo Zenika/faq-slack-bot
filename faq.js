@@ -28,7 +28,7 @@ const requestToken = () => {
         userId: "cjnnk20b2127809206b25tjiv",
         prismaService: "default/prod"
       },
-      "HWjX7OJF8+OaYCgvkUF4RN73PZXxv44mIfutCcXmfTE="
+      secret
     );
   } catch (err) {
     token = null;
