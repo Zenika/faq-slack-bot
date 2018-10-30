@@ -25,7 +25,7 @@ const requestToken = () => {
   try {
     token = jwt.sign(
       {
-        userId: "cjnnk20b2127809206b25tjiv",
+        userId,
         prismaService: "default/prod"
       },
       secret
