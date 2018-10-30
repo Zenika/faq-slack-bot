@@ -84,7 +84,7 @@ const callFaqApi = (queryString, first = 9, skip = 0) => {
     },
     (err, res, body) => {
       if (!err) {
-        console.log("message sent :", res, body);
+        console.log("request to faq sent :", res.statusCode, body);
       } else {
         console.error("Unable to send message:" + err);
       }
