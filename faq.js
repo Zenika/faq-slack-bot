@@ -25,12 +25,10 @@ const requestToken = () => {
   try {
     token = jwt.sign(
       {
-        "user-id": userId,
-        "prisma-service": prismaService,
-        iat: iat,
-        exp: iat + 60 * 15
+        userId: "cjnnk20b2127809206b25tjiv",
+        prismaService: "default/prod"
       },
-      secret
+      "HWjX7OJF8+OaYCgvkUF4RN73PZXxv44mIfutCcXmfTE="
     );
   } catch (err) {
     token = null;
@@ -71,7 +69,7 @@ const callFaqApi = async (text, first = 9, skip = 0) => {
         uri: faqUrl,
         headers: {
           Authorization: `API ${token}`,
-          "prisma-service": prismaService
+          "prisma-service": "default/prod"
         },
         json: JSON.stringify({
           query: gqlQuery,
@@ -87,7 +85,7 @@ const callFaqApi = async (text, first = 9, skip = 0) => {
       }
     );
   } else {
-    console.error("Unable to request token");
+    console.error("Unable to request token"); //Todo better
   }
 };
 
