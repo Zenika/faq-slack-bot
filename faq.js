@@ -19,7 +19,6 @@ const requestToken = () => {
     prismaService
   );
 
-  const iat = Math.floor(Date.now() / 1000); //token request issued at
   let token;
 
   try {
@@ -72,8 +71,7 @@ const callFaqApi = async (text, first = 9, skip = 0) => {
           "prisma-service": prismaService
         },
         json: JSON.stringify({
-          query,
-          variables: { text: "note de frais", first, skip }
+          query
         })
       },
       (err, res, body) => {
