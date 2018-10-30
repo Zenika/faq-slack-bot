@@ -43,11 +43,12 @@ const callFaqApi = (text, first = 9, skip = 0) => {
   console.log("callFaqApi : ", "text:", text, "first", first, "skip", skip);
 
   //request a new token before each call to the FAQ's api
-  const token = /* await */ requestToken();
+  const token = await requestToken();
 
-  console.log("callFaqApi", "token:", token);
+  if (token) {
+    console.log("callFaqApi", "token:", token);
 
-  const gqlQuery = `query Search($text: String!, $first: Int!, $skip: Int!) {
+    const gqlQuery = `query Search($text: String!, $first: Int!, $skip: Int!) {
     search(text:$text, first: $first, skip:$skip) {
       nodes {
         id
@@ -63,28 +64,31 @@ const callFaqApi = (text, first = 9, skip = 0) => {
     }
   }`;
 
-  // Send the HTTP request to the FAQ's API
-  request(
-    {
-      method: "POST",
-      uri: faqUrl,
-      headers: {
-        Authorization: `API eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjam5uazIwYjIxMjc4MDkyMDZiMjV0aml2IiwicHJpc21hU2VydmljZSI6ImRlZmF1bHQvcHJvZCIsImp0aSI6ImNkYjZjZjVlLTUzOGUtNDM2NS1iYTUxLTdhMmMyYzJkOGVkMiIsImlhdCI6MTU0MDkxMjY5MywiZXhwIjoxNTQwOTE2MjkzfQ.NxF_NBNIOq74LH3eoUUCboETddUMNva9_8svjsz0POY`,
-        "prisma-service": prismaService
+    // Send the HTTP request to the FAQ's API
+    request(
+      {
+        method: "POST",
+        uri: faqUrl,
+        headers: {
+          Authorization: `API eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjam5uazIwYjIxMjc4MDkyMDZiMjV0aml2IiwicHJpc21hU2VydmljZSI6ImRlZmF1bHQvcHJvZCIsImp0aSI6ImNkYjZjZjVlLTUzOGUtNDM2NS1iYTUxLTdhMmMyYzJkOGVkMiIsImlhdCI6MTU0MDkxMjY5MywiZXhwIjoxNTQwOTE2MjkzfQ.NxF_NBNIOq74LH3eoUUCboETddUMNva9_8svjsz0POY`,
+          "prisma-service": prismaService
+        },
+        json: JSON.stringify({
+          query: gqlQuery,
+          variables: { text: "note de frais", first, skip }
+        })
       },
-      json: JSON.stringify({
-        query: gqlQuery,
-        variables: { text: "note de frais", first, skip }
-      })
-    },
-    (err, res, body) => {
-      if (!err) {
-        console.log("request to faq sent :", res.statusCode, body);
-      } else {
-        console.error("Unable to send message:" + err);
+      (err, res, body) => {
+        if (!err) {
+          console.log("request to faq sent :", res.statusCode, body);
+        } else {
+          console.error("Unable to send message:" + err);
+        }
       }
-    }
-  );
+    );
+  }else {
+    console.error("Unable to request token");
+  }
 };
 
 module.exports = callFaqApi;
