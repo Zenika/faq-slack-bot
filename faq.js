@@ -11,8 +11,8 @@ const requestToken = () => {
 
   return jwt.sign(
     {
-      "user-id": userId,
-      "prisma-service": prismaService,
+      "user-id": "userId",
+      "prisma-service": "prismaService",
       iat: iat,
       exp: iat + 60
     },
