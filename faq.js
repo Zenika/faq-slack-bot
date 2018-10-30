@@ -39,37 +39,29 @@ const requestToken = () => {
   return token;
 };
 
-const callFaqApi = (queryString, first = 9, skip = 0) => {
-  console.log(
-    "callFaqApi : ",
-    "queryString:",
-    queryString,
-    "first",
-    first,
-    "skip",
-    skip
-  );
+const callFaqApi = (text, first = 9, skip = 0) => {
+  console.log("callFaqApi : ", "text:", text, "first", first, "skip", skip);
 
   //request a new token before each call to the FAQ's api
   const token = /* await */ requestToken();
 
   console.log("callFaqApi", "token:", token);
 
-  const gqlQuery = `query {
-  search(text: "note de frais", first: ${first}, skip:${skip}) {
-    nodes {
-      id
-      question {
+  const gqlQuery = `query Search($text: String!, $first: Int!, $skip: Int!) {
+    search(text:$text , first: $first, skip:$skip) {
+      nodes {
         id
-        slug
-        title
-      }
-      answer {
-        content
+        question {
+          id
+          slug
+          title
+        }
+        answer {
+          content
+        }
       }
     }
-  }
-}`;
+  }`;
 
   // Send the HTTP request to the FAQ's API
   request(
@@ -80,7 +72,10 @@ const callFaqApi = (queryString, first = 9, skip = 0) => {
         Authorization: `API ${token}`,
         "prisma-service": prismaService
       },
-      json: JSON.stringify(gqlQuery)
+      json: JSON.stringify({
+        query: gqlQuery,
+        variables: { text: "note de frais", first, skip }
+      })
     },
     (err, res, body) => {
       if (!err) {
