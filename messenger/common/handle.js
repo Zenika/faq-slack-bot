@@ -4,6 +4,8 @@ const callSendAPI = require("./callSendAPI"),
   Caroussel = require("../model/Caroussel"),
   SearchResult = require("../model/SearchResult");
 
+const callFaqApi = require("../../faq");
+
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
   console.log("handleMessage", received_message);
@@ -16,7 +18,10 @@ function handleMessage(sender_psid, received_message) {
 
     const question = received_message.text;
 
-    //TODO search for the query string
+    // Search for the query string in the FAQ's API
+
+    callFaqApi(question);
+
     //TODO limit to 9 results + 1 généric result(link to FAQ)
     message = Caroussel([
       SearchResult(question, "Titre", "Sous-titre", "https://faq.zenika.com/"),
