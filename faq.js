@@ -46,7 +46,7 @@ const callFaqApi = async (text, first = 9, skip = 0) => {
   if (token) {
     console.log("callFaqApi", "token:", token);
 
-    const gqlQuery = `query {
+    const query = `{
       search(text:"note de frais", first: 9, skip:0) {
         nodes {
           id
@@ -72,7 +72,7 @@ const callFaqApi = async (text, first = 9, skip = 0) => {
           "prisma-service": prismaService
         },
         json: JSON.stringify({
-          query: gqlQuery,
+          query,
           variables: { text: "note de frais", first, skip }
         })
       },
