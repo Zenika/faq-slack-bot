@@ -46,21 +46,21 @@ const callFaqApi = async (text, first = 9, skip = 0) => {
   if (token) {
     console.log("callFaqApi", "token:", token);
 
-    const gqlQuery = `query Search($text: String!, $first: Int!, $skip: Int!) {
-    search(text:$text, first: $first, skip:$skip) {
-      nodes {
-        id
-        question {
+    const gqlQuery = `query {
+      search(text:"note de frais", first: 9, skip:0) {
+        nodes {
           id
-          slug
-          title
-        }
-        answer {
-          content
+          question {
+            id
+            slug
+            title
+          }
+          answer {
+            content
+          }
         }
       }
-    }
-  }`;
+    }`;
 
     // Send the HTTP request to the FAQ's API
     request(
