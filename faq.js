@@ -39,7 +39,7 @@ const requestToken = () => {
   return token;
 };
 
-const callFaqApi = (text, first = 9, skip = 0) => {
+const callFaqApi = async (text, first = 9, skip = 0) => {
   console.log("callFaqApi : ", "text:", text, "first", first, "skip", skip);
 
   //request a new token before each call to the FAQ's api
@@ -70,7 +70,7 @@ const callFaqApi = (text, first = 9, skip = 0) => {
         method: "POST",
         uri: faqUrl,
         headers: {
-          Authorization: `API eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjam5uazIwYjIxMjc4MDkyMDZiMjV0aml2IiwicHJpc21hU2VydmljZSI6ImRlZmF1bHQvcHJvZCIsImp0aSI6ImNkYjZjZjVlLTUzOGUtNDM2NS1iYTUxLTdhMmMyYzJkOGVkMiIsImlhdCI6MTU0MDkxMjY5MywiZXhwIjoxNTQwOTE2MjkzfQ.NxF_NBNIOq74LH3eoUUCboETddUMNva9_8svjsz0POY`,
+          Authorization: `API ${token}`,
           "prisma-service": prismaService
         },
         json: JSON.stringify({
@@ -86,7 +86,7 @@ const callFaqApi = (text, first = 9, skip = 0) => {
         }
       }
     );
-  }else {
+  } else {
     console.error("Unable to request token");
   }
 };
