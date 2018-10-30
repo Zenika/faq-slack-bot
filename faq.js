@@ -72,25 +72,24 @@ const callFaqApi = (queryString, first = 9, skip = 0) => {
 }`;
 
   // Send the HTTP request to the FAQ's API
-  /* request(
-  {
-    method: "POST",
-    uri: faqUrl,
-    headers: {
-      Authorization: `API ${token}`,
-      "prisma-service": prismaService
+  request(
+    {
+      method: "POST",
+      uri: faqUrl,
+      headers: {
+        Authorization: `API ${token}`,
+        "prisma-service": prismaService
+      },
+      json: JSON.stringify(gqlQuery)
     },
-    json: {}
-  },
-  (err, res, body) => {
-    if (!err) {
-      console.log("message sent :", JSON.stringify(request_body));
-    } else {
-      console.error("Unable to send message:" + err);
+    (err, res, body) => {
+      if (!err) {
+        console.log("message sent :", res, body);
+      } else {
+        console.error("Unable to send message:" + err);
+      }
     }
-  }
-);
- */
+  );
 };
 
 module.exports = callFaqApi;
