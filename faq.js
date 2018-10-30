@@ -28,7 +28,7 @@ const requestToken = () => {
         "user-id": userId,
         "prisma-service": prismaService,
         iat: iat,
-        exp: iat + 60
+        exp: iat + 60 * 15
       },
       secret
     );
