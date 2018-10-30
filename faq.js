@@ -69,7 +69,7 @@ const callFaqApi = (text, first = 9, skip = 0) => {
       method: "POST",
       uri: faqUrl,
       headers: {
-        Authorization: `API ${token}`,
+        Authorization: `API eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjam5uazIwYjIxMjc4MDkyMDZiMjV0aml2IiwicHJpc21hU2VydmljZSI6ImRlZmF1bHQvcHJvZCIsImp0aSI6ImNkYjZjZjVlLTUzOGUtNDM2NS1iYTUxLTdhMmMyYzJkOGVkMiIsImlhdCI6MTU0MDkxMjY5MywiZXhwIjoxNTQwOTE2MjkzfQ.NxF_NBNIOq74LH3eoUUCboETddUMNva9_8svjsz0POY`,
         "prisma-service": prismaService
       },
       json: JSON.stringify({
