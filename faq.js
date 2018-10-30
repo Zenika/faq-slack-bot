@@ -26,7 +26,7 @@ const requestToken = () => {
     token = jwt.sign(
       {
         userId,
-        prismaService: "default/prod"
+        prismaService
       },
       secret
     );
@@ -69,7 +69,7 @@ const callFaqApi = async (text, first = 9, skip = 0) => {
         uri: faqUrl,
         headers: {
           Authorization: `API ${token}`,
-          "prisma-service": "default/prod"
+          "prisma-service": prismaService
         },
         json: JSON.stringify({
           query: gqlQuery,
