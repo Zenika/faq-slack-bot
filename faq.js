@@ -1,7 +1,7 @@
 const secret = process.env.FAQ_SECRET;
 const userId = process.env.FAQ_USER_ID;
 const faqUrl = process.env.FAQ_URL;
-const prismaService = "default/prod";
+const prismaService = process.env.PRISMA_SERVICE;
 
 const jwt = require("jsonwebtoken"),
   request = require("request");
