@@ -48,7 +48,7 @@ const callFaqApi = (text, first = 9, skip = 0) => {
   console.log("callFaqApi", "token:", token);
 
   const gqlQuery = `query Search($text: String!, $first: Int!, $skip: Int!) {
-    search(text:$text , first: $first, skip:$skip) {
+    search(text:$text, first: $first, skip:$skip) {
       nodes {
         id
         question {
