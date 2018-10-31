@@ -1,33 +1,38 @@
 const callSendAPI = require("./callSendAPI"),
+  { makeCaroussel } = require("./transform"),
   UnsatisfactorySearch = require("../model/UnsatisfactorySearch"),
-  SatisfactorySearch = require("../model/SatisfactorySearch"),
-  Caroussel = require("../model/Caroussel"),
-  SearchResult = require("../model/SearchResult");
+  SatisfactorySearch = require("../model/SatisfactorySearch");
 
-const callFaqApi = require("../../faq");
+const faq = require("../../faq");
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
+async function handleMessage(sender_psid, received_message) {
   console.log("handleMessage", received_message);
   let message;
 
   // Checks if the message contains text
+  // And create the payload for a basic text message, which
+  // will be added to the body of our request to the Send API
+
   if (received_message.text) {
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
+    const messageText = received_message.text;
 
-    const question = received_message.text;
-
-    // Search for the query string in the FAQ's API
-
-    callFaqApi(question);
-
-    //TODO limit to 9 results + 1 généric result(link to FAQ)
-    message = Caroussel([
-      SearchResult(question, "Titre", "Sous-titre", "https://faq.zenika.com/"),
-      SearchResult(question, "Titre", "Sous-titre", "https://faq.zenika.com/"),
-      SearchResult(question, "Titre", "Sous-titre", "https://faq.zenika.com/")
-    ]);
+    try {
+      // Start a search session for the query string by requesting the FAQ's API
+      const { search } = await faq(messageText);
+      console.log("handleMessage search : ", search);
+      if (search.nodes && search.nodes.length > 0) {
+        message = makeCaroussel(messageText, search.nodes);
+        console.log("handleMessage Caroussel : ", message);
+      } else {
+        message = UnsatisfactorySearch(context);
+      }
+    } catch (err) {
+      console.log("handleMessage err : ", err);
+      message = {
+        text: `Désolé! Une erreur inattendue s'est produite.`
+      };
+    }
   } else if (received_message.attachments) {
     message = {
       text: `Désolé! Je ne prend pas en charge les pièces jointes pour le moment.`

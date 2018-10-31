@@ -24,7 +24,7 @@ function callSendAPI(sender_psid, message) {
       if (!err) {
         console.log("message sent :", JSON.stringify(request_body));
       } else {
-        console.error("Unable to send message:" + err);
+        console.error("Unable to send message:", err);
       }
     }
   );
