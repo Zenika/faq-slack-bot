@@ -25,7 +25,7 @@ async function handleMessage(sender_psid, received_message) {
         message = makeCaroussel(messageText, search.nodes);
         console.log("handleMessage Caroussel : ", message);
       } else {
-        message = UnsatisfactorySearch(context);
+        message = UnsatisfactorySearch(messageText);
       }
     } catch (err) {
       console.log("handleMessage err : ", err);
