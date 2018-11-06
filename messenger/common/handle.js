@@ -25,7 +25,7 @@ async function handleMessage(sender_psid, received_message) {
       } else {
         message = UnsatisfactorySearch(
           messageText,
-          `Désolé! Je n'ai rien trouvé.\n Je te propose de faire ça:`
+          `Désolé! Je n'ai rien trouvé.\nTu peux toujours faire ça:`
         );
       }
     } catch (err) {
@@ -59,7 +59,7 @@ function handlePostback(sender_psid, received_postback) {
     case "damn":
       message = UnsatisfactorySearch(
         context,
-        `Arghh! Je te propose de faire ça:`
+        `Arghh!\nJe te propose de faire ça:`
       );
       break;
     case "start_search":
