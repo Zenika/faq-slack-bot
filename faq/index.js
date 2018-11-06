@@ -6,7 +6,7 @@ const prismaService = process.env.PRISMA_SERVICE;
 const jwt = require("jsonwebtoken"),
   request = require("request");
 
-const faq = (text, first = 10, skip = 0) => {
+const faq = (text, first = 9, skip = 0) => {
   const query = `{
     search(text: "${text}", first: ${first}, skip:${skip}) {
       nodes {

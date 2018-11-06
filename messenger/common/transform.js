@@ -3,7 +3,7 @@ const Caroussel = require("../model/Caroussel"),
 
 // Transform each result node into a SearchResult object.
 // Return a Caroussel object filled with the created SearchResult objects.
-function makeCaroussel(context, nodes = [], max = 10) {
+function makeCaroussel(context, nodes = [], max = 9) {
   const caroussel = nodes
     .map(({ id, question, answer }) =>
       SearchResult(
@@ -15,7 +15,17 @@ function makeCaroussel(context, nodes = [], max = 10) {
         }`
       )
     )
-    .slice(0, max);
+    .slice(0, max)
+    .push(
+      SearchResult(
+        context,
+        context,
+        "Voir plus de résultats dans FAQ.",
+        `https://faq.zenika.com/${
+          question ? "q/" + (question.slug + "-" + id) : ""
+        }`
+      )
+    );
 
   return Caroussel(caroussel);
 }
