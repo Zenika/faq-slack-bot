@@ -7,8 +7,6 @@ const jwt = require("jsonwebtoken"),
   request = require("request");
 
 const faq = (text, first = 10, skip = 0) => {
-  console.log("faq : text:", text, first, skip);
-
   const query = `{
     search(text: "${text}", first: ${first}, skip:${skip}) {
       nodes {
@@ -29,8 +27,6 @@ const faq = (text, first = 10, skip = 0) => {
     try {
       //request a new token before each call to the FAQ's api
       const token = jwt.sign({ userId, prismaService }, secret);
-
-      console.log("faq : token:", token);
 
       // Send the HTTP request to the FAQ's API
       request(

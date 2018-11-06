@@ -4,8 +4,6 @@ const Caroussel = require("../model/Caroussel"),
 // Transform each result node into a SearchResult object.
 // Return a Caroussel object filled with the created SearchResult objects.
 function makeCaroussel(context, nodes = [], max = 10) {
-  nodes.map(n => console.log("[IN]", n, "\n\n\n")); //Debug
-
   const caroussel = nodes
     .map(({ id, question, answer }) =>
       SearchResult(
@@ -19,10 +17,7 @@ function makeCaroussel(context, nodes = [], max = 10) {
     )
     .slice(0, max);
 
-  caroussel.map(sr => console.log("[OUT]", sr, "\n\n\n")); //Debug
-
   return Caroussel(caroussel);
 }
 
 module.exports = { makeCaroussel };
-

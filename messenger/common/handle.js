@@ -19,10 +19,9 @@ async function handleMessage(sender_psid, received_message) {
     try {
       // Start a search session for the query string by requesting the FAQ's API
       const { search } = await faq(messageText);
-      console.log("handleMessage search : ", search);
+
       if (search.nodes && search.nodes.length > 0) {
         message = makeCaroussel(messageText, search.nodes);
-        console.log("handleMessage Caroussel : ", message);
       } else {
         message = UnsatisfactorySearch(messageText);
       }
