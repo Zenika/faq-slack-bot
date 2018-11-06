@@ -15,15 +15,15 @@ function makeCaroussel(context, nodes = [], max = 9) {
         }`
       )
     )
-    .slice(0, max)
-    .push(
-      SearchResult(
-        context,
-        context,
-        "Voir la liste complète des résultats dans FAQ.",
-        `https://faq.zenika.com/?q=${context}`
-      )
-    );
+    .slice(0, max);
+  caroussel.push(
+    SearchResult(
+      context,
+      context,
+      "Voir la liste complète des résultats dans FAQ.",
+      `https://faq.zenika.com/?q=${context}`
+    )
+  );
 
   return Caroussel(caroussel);
 }
