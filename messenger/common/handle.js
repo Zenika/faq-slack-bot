@@ -31,12 +31,12 @@ async function handleMessage(sender_psid, received_message) {
     } catch (err) {
       console.log("handleMessage err : ", err);
       message = {
-        text: `Désolé! Une erreur inattendue s'est produite.`
+        text: `Désolé! Une erreur inattendue s'est produite. 😢`
       };
     }
   } else if (received_message.attachments) {
     message = {
-      text: `Désolé! Je ne prend pas en charge les pièces jointes pour le moment.`
+      text: `Désolé! Je ne prend pas en charge les pièces jointes pour le moment. 😭`
     };
   }
 
