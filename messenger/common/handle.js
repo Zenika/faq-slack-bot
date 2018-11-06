@@ -38,7 +38,7 @@ async function handleMessage(sender_psid, received_message) {
   }
 
   // Send the response message
-  callSendAPI(sender_psid, message);
+  callSendAPI(sender_psid, message, "typing_on");
 }
 
 // Handles messaging_postbacks events
@@ -62,7 +62,7 @@ function handlePostback(sender_psid, received_postback) {
   }
 
   // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, message);
+  callSendAPI(sender_psid, message, "mark_seen");
 }
 
 module.exports = { handleMessage, handlePostback };

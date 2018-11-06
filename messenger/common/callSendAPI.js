@@ -3,13 +3,14 @@ const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const request = require("request");
 
 // Sends response messages via the Send API
-function callSendAPI(sender_psid, message) {
+function callSendAPI(sender_psid, message, mode = "typing_off") {
   // Construct the message body
   let request_body = {
     recipient: {
       id: sender_psid
     },
-    message: message
+    message: message,
+    sender_action: mode
   };
 
   // Send the HTTP request to the Messenger Platform
