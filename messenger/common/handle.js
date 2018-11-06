@@ -25,7 +25,7 @@ async function handleMessage(sender_psid, received_message) {
       } else {
         message = UnsatisfactorySearch(
           messageText,
-          `Désolé! Je n'ai rien trouvé 🤷.\nTu peux toujours faire ça:`
+          `Désolé! Je n'ai rien trouvé.. 🤷\nTu peux toujours faire ça:`
         );
       }
     } catch (err) {
@@ -59,14 +59,14 @@ function handlePostback(sender_psid, received_postback) {
     case "damn":
       message = UnsatisfactorySearch(
         context,
-        `Arghh!\nJe te propose de faire ça:`
+        `Arghh! 😡\nJe te propose de faire ça:`
       );
       break;
     case "start_search":
-      message = { text: "Que recherches tu ?" };
+      message = { text: "Que recherches tu ? 🤓" };
       break;
     default:
-      message = { text: "Désolé! Je n'ai pas compris.." }; //Should Never Occur
+      message = { text: "Désolé! Je n'ai pas compris.. 😅" }; //Should Never Occur
   }
 
   // Send the message to acknowledge the postback
