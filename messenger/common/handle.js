@@ -38,7 +38,9 @@ async function handleMessage(sender_psid, received_message) {
   }
 
   // Send the response message
-  callSendAPI(sender_psid, message);
+  callSendAPI(sender_psid, { message })
+    .then(res => console.log("message sent :", JSON.stringify(res)))
+    .catch(err => console.error("Unable to send message :", err));
 }
 
 // Handles messaging_postbacks events
@@ -62,7 +64,9 @@ function handlePostback(sender_psid, received_postback) {
   }
 
   // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, message);
+  callSendAPI(sender_psid, { message })
+    .then(res => console.log("postback sent :", JSON.stringify(res)))
+    .catch(err => console.error("Unable to send postback :", err));
 }
 
 module.exports = { handleMessage, handlePostback };

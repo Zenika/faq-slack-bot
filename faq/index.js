@@ -24,33 +24,29 @@ const faq = (text, first = 10, skip = 0) => {
   }`;
 
   return new Promise((resolve, reject) => {
-    try {
-      //request a new token before each call to the FAQ's api
-      const token = jwt.sign({ userId, prismaService }, secret);
+    //request a new token before each call to the FAQ's api
+    const token = jwt.sign({ userId, prismaService }, secret);
 
-      // Send the HTTP request to the FAQ's API
-      request(
-        {
-          method: "POST",
-          uri: faqUrl,
-          headers: {
-            Authorization: `API ${token}`,
-            "prisma-service": prismaService
-          },
-          json: { query }
+    // Send the HTTP request to the FAQ's API
+    request(
+      {
+        method: "POST",
+        uri: faqUrl,
+        headers: {
+          Authorization: `API ${token}`,
+          "prisma-service": prismaService
         },
-        (err, res, body) => {
-          if (err) reject(error);
+        json: { query }
+      },
+      (err, res, body) => {
+        if (err) reject(error);
 
-          if (res.statusCode !== 200)
-            reject(new Error(res.statusCode + " " + res.statusMessage));
+        if (res.statusCode !== 200)
+          reject(new Error(res.statusCode + " " + res.statusMessage));
 
-          resolve(body.data);
-        }
-      );
-    } catch (err) {
-      reject(err);
-    }
+        resolve(body.data);
+      }
+    );
   });
 };
 
