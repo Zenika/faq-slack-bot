@@ -41,10 +41,10 @@ async function handleMessage(sender_psid, received_message) {
   }
 
   // Send the response message
-  callSendAPI(sender_psid, { sender_action: "typing_on" });
-  /* callSendAPI(sender_psid, { message })
+  //callSendAPI(sender_psid, { sender_action: "typing_on" }); //TODO 
+  callSendAPI(sender_psid, { message })
     .then(res => console.log("message sent :", JSON.stringify(res)))
-    .catch(err => console.error("Unable to send message :", err)); */
+    .catch(err => console.error("Unable to send message :", err));
 }
 
 // Handles messaging_postbacks events
