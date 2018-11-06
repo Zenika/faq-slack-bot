@@ -19,11 +19,6 @@ function SearchResult(context, title, subtitle, action_url, image_url) {
       },
       {
         type: "postback",
-        title: "Merci!",
-        payload: PostbackPayload(context, "thank")
-      },
-      {
-        type: "postback",
         title: "Ce n'est pas ça!",
         payload: PostbackPayload(context, "damn")
       }

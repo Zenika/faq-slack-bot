@@ -1,7 +1,6 @@
 const callSendAPI = require("./callSendAPI"),
   { makeCaroussel } = require("./transform"),
-  UnsatisfactorySearch = require("../model/UnsatisfactorySearch"),
-  SatisfactorySearch = require("../model/SatisfactorySearch");
+  UnsatisfactorySearch = require("../model/UnsatisfactorySearch");
 
 const faq = require("../../faq");
 
@@ -53,9 +52,6 @@ function handlePostback(sender_psid, received_postback) {
 
   // Set the response based on the postback payload's action
   switch (action) {
-    case "thank":
-      message = SatisfactorySearch(context);
-      break;
     case "damn":
       message = UnsatisfactorySearch(context);
       break;
