@@ -25,7 +25,7 @@ async function handleMessage(sender_psid, received_message) {
       } else {
         message = UnsatisfactorySearch(
           messageText,
-          `Désolé! Je n'ai rien trouvé.\nTu peux toujours faire ça:`
+          `Désolé! Je n'ai rien trouvé 🤷.\nTu peux toujours faire ça:`
         );
       }
     } catch (err) {
