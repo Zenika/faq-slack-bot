@@ -59,7 +59,7 @@ function handlePostback(sender_psid, received_postback) {
     case "damn":
       message = UnsatisfactorySearch(
         context,
-        `Arghh! 😡\nJe te propose de faire ça:`
+        `Arghh! 😡\nJe te propose de faire ça 😓:`
       );
       break;
     case "start_search":
