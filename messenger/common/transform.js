@@ -20,10 +20,8 @@ function makeCaroussel(context, nodes = [], max = 9) {
       SearchResult(
         context,
         context,
-        "Voir plus de résultats dans FAQ.",
-        `https://faq.zenika.com/${
-          question ? "q/" + (question.slug + "-" + id) : ""
-        }`
+        "Voir la liste complète des résultats dans FAQ.",
+        `https://faq.zenika.com/?q=${context}`
       )
     );
 
