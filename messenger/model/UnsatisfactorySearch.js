@@ -1,12 +1,12 @@
 const PostbackPayload = require("./PostbackPayload");
 
-function UnsatisfactorySearch(context) {
+function UnsatisfactorySearch(context, text) {
   return {
     attachment: {
       type: "template",
       payload: {
         template_type: "button",
-        text: "Arghh! Je te propose de faire ça:",
+        text: text,
         buttons: [
           {
             type: "postback",

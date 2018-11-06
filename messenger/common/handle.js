@@ -23,7 +23,10 @@ async function handleMessage(sender_psid, received_message) {
       if (search.nodes && search.nodes.length > 0) {
         message = makeCaroussel(messageText, search.nodes);
       } else {
-        message = UnsatisfactorySearch(messageText);
+        message = UnsatisfactorySearch(
+          messageText,
+          `Désolé! Je n'ai rien trouvé.\n Je te propose de faire ça:`
+        );
       }
     } catch (err) {
       console.log("handleMessage err : ", err);
@@ -54,7 +57,10 @@ function handlePostback(sender_psid, received_postback) {
   // Set the response based on the postback payload's action
   switch (action) {
     case "damn":
-      message = UnsatisfactorySearch(context);
+      message = UnsatisfactorySearch(
+        context,
+        `Arghh! Je te propose de faire ça:`
+      );
       break;
     case "start_search":
       message = { text: "Que recherches tu ?" };
