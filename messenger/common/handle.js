@@ -15,9 +15,11 @@ async function handleMessage(sender_psid, received_message) {
 
   if (received_message.text) {
     const messageText = received_message.text;
-    callSendAPI(sender_psid, { sender_action: "typing_on" }); //TODO 
 
     try {
+      //Simulate user typing while the search occurs
+      
+
       // Start a search session for the query string by requesting the FAQ's API
       const { search } = await faq(messageText);
 
@@ -42,9 +44,10 @@ async function handleMessage(sender_psid, received_message) {
   }
 
   // Send the response message
-  
+
   callSendAPI(sender_psid, { message })
     .then(res => console.log("message sent :", JSON.stringify(res)))
+    .then(_=>callSendAPI(sender_psid, { sender_action: "typing_on" }))
     .catch(err => console.error("Unable to send message :", err));
 }
 
@@ -61,14 +64,14 @@ function handlePostback(sender_psid, received_postback) {
     case "damn":
       message = UnsatisfactorySearch(
         context,
-        `Arghh! 😡\nJe te propose de faire ça 😓:`
+        `Arghh!\nJe te propose de faire ça 😓:`
       );
       break;
     case "start_search":
       message = { text: "Que recherches tu ? 🤓" };
       break;
     default:
-      message = { text: "Désolé! Je n'ai pas compris 😅" }; //Should Never Occur
+      message = { text: "Désolé! Je n'ai pas compris 😅" };
   }
 
   // Send the message to acknowledge the postback
