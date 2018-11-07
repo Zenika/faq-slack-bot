@@ -15,6 +15,7 @@ async function handleMessage(sender_psid, received_message) {
 
   if (received_message.text) {
     const messageText = received_message.text;
+    callSendAPI(sender_psid, { sender_action: "typing_on" }); //TODO 
 
     try {
       // Start a search session for the query string by requesting the FAQ's API
@@ -41,7 +42,7 @@ async function handleMessage(sender_psid, received_message) {
   }
 
   // Send the response message
-  //callSendAPI(sender_psid, { sender_action: "typing_on" }); //TODO 
+  
   callSendAPI(sender_psid, { message })
     .then(res => console.log("message sent :", JSON.stringify(res)))
     .catch(err => console.error("Unable to send message :", err));
