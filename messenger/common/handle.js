@@ -18,7 +18,7 @@ async function handleMessage(sender_psid, received_message) {
 
     try {
       //Simulate user typing while the search occurs
-      
+      callSendAPI(sender_psid, { sender_action: "typing_on" });
 
       // Start a search session for the query string by requesting the FAQ's API
       const { search } = await faq(messageText);
@@ -47,7 +47,6 @@ async function handleMessage(sender_psid, received_message) {
 
   callSendAPI(sender_psid, { message })
     .then(res => console.log("message sent :", JSON.stringify(res)))
-    .then(_=>callSendAPI(sender_psid, { sender_action: "typing_on" }))
     .catch(err => console.error("Unable to send message :", err));
 }
 
