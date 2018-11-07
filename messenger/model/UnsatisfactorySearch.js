@@ -8,6 +8,8 @@ function UnsatisfactorySearch(context, text) {
 
   const ctx = decode(context);
 
+  console.log("UnsatisfactorySearch ctx= ", ctx)
+
   return {
     attachment: {
       type: "template",
