@@ -3,12 +3,7 @@ const decode = require("urldecode");
 const PostbackPayload = require("./PostbackPayload");
 
 function UnsatisfactorySearch(context, text) {
-
-  console.log("UnsatisfactorySearch context= ", context)
-
   const ctx = decode(context);
-
-  console.log("UnsatisfactorySearch ctx= ", ctx)
 
   return {
     attachment: {
