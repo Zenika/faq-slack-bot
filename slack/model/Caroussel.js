@@ -1,6 +1,6 @@
 function Caroussel(context, searchResultList = []) {
   return {
-    text: context,
+    text: `*${context}*`,
     attachments: searchResultList
   };
 }
