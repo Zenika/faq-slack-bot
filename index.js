@@ -22,7 +22,7 @@ app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 app.get("/webhook", (req, res) => {
   console.log("trying to get..");
   /** UPDATE YOUR VERIFY TOKEN **/
-  const VERIFY_TOKEN = "ZENIKA_ZENBOT_1234";
+  const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
   // Parse params from the webhook verification request
   let mode = req.query["hub.mode"];
