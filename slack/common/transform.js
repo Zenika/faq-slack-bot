@@ -1,6 +1,8 @@
 const Caroussel = require("../model/Caroussel"),
   SearchResult = require("../model/SearchResult");
 
+//TODO limit to 9 results
+
 // Transform each result node into a SearchResult object.
 // Return a Caroussel object filled with the created SearchResult objects.
 function makeCaroussel(context, nodes = [], max = 9) {

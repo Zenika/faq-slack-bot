@@ -15,11 +15,11 @@ function handleCommand({ text: commandText, ...meta }) {
         const { search } = await faq(commandText);
 
         if (search.nodes && search.nodes.length > 0) {
-          //TODO limit to 9 results
           message = makeCaroussel(commandText, search.nodes);
+          console.log("caroussel:", message);
         } else {
           message = {
-            text: `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`
+            text: `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça : //TODO`
           };
         }
       } catch (err) {

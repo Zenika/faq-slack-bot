@@ -96,7 +96,7 @@ app.post("/slackhook", async (req, res) => {
 
   // Return a '200 OK' response to all events
   res.status(200).send({
-    response_type: "ephemeral",
+    response_type: "ephemeral", //controls the message's visibility
     ...message
   });
 });
