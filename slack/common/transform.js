@@ -27,7 +27,7 @@ function makeCaroussel(context, nodes = [], max = 9) {
     )
   );
 
-  return Caroussel(caroussel);
+  return Caroussel(context, caroussel);
 }
 
 module.exports = { makeCaroussel };
