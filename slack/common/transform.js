@@ -19,7 +19,7 @@ function makeCaroussel(context, nodes = [], max = 9) {
   caroussel.push(
     SearchResult(
       context,
-      `Voir la liste complète des résultats dans FAQ.\n
+      `Voir la liste complète des résultats dans FAQ:\n
       https://faq.zenika.com/?q=${context}`
     )
   );
