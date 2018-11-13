@@ -10,7 +10,7 @@ async function handleMessage(sender_psid, received_message) {
   let message, waiting;
 
   // Checks if the message contains text
-  // And create the payload for a basic text message, which
+  // And create the payload for a text message, which
   // will be added to the body of our request to the Send API
 
   if (received_message.text) {

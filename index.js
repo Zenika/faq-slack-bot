@@ -85,33 +85,18 @@ app.post("/webhook", (req, res) => {
 
 // Accepts POST requests at /slackhook endpoint
 app.post("/slackhook", (req, res) => {
-  // Parse the request body from the POST
+  // Parse the body from the POST request
   let body = req.body;
 
   console.log("\n\n--> slackhook b", body);
   console.log("\n\n--> slackhook b txt", body.text);
-  console.log("\n\n--> slackhook str b", JSON.stringify(body));
 
-  // Check if the command is sent with a search text.
-  if (body.text) {
-    /*  // Get the sender PSID
-    let user_id = body.user_id;
-    console.log("User_ID: " + user_id); //TODO DELETE IF USELESS */
+  // pass the parsed body to the appropriate handler function
+  const message = handleCommand(body);
 
-    // pass the event to the appropriate handler function
-    const result = handleCommand(body);
-
-    // Return a '200 OK' response to all events
-    res.status(200).send({
-      response_type: "ephemeral",
-      ...result
-    });
-  } else {
-    // Use a JSON payload to communicate the error back to the user as an ephemeral message.
-    res.status(200).send({
-      response_type: "ephemeral",
-      text:
-        "La commande /faq doit toujours être suivie d'un texte de recherche. \n ex: /faq comment faire une note de frais"
-    });
-  }
+  // Return a '200 OK' response to all events
+  res.status(200).send({
+    response_type: "ephemeral",
+    ...message
+  });
 });

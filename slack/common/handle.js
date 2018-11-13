@@ -1,19 +1,41 @@
-const Caroussel = require("../model/Caroussel"),
-  SearchResult = require("../model/SearchResult");
+const { makeCaroussel } = require("./transform");
+
+const faq = require("../../faq");
 
 // Handles command events
-function handleCommand({ text: commandText, ...meta }) {
+async function handleCommand({ text: commandText, ...meta }) {
   console.log("handleCommand", "text:", commandText, "meta:", meta);
+  let message;
 
-  const result = Caroussel("LOL", [SearchResult("titre")]);
-
-  /* // Checks if the command's text exists
+  // Check if the command is sent with a search text.
   if (commandText) {
-    //TODO search for the query string
-    //TODO limit to 9 results
-  } */
+    try {
+      // Start a search session for the query string by requesting the FAQ's API
+      const { search } = await faq(commandText);
 
-  return result;
+      if (search.nodes && search.nodes.length > 0) {
+        //TODO limit to 9 results
+        message = makeCaroussel(commandText, search.nodes);
+      } else {
+        message = {
+          text: `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`
+        };
+      }
+    } catch (err) {
+      console.log("handleCommand err : ", err);
+      message = {
+        text: `Désolé! Une erreur inattendue s'est produite 😱`
+      };
+    }
+  } else {
+    // Use a JSON payload to communicate the error back to the user as an ephemeral message.
+    message = {
+      text:
+        "La commande /faq doit toujours être suivie d'un texte de recherche. \n ex: /faq comment faire une note de frais"
+    };
+  }
+
+  return message;
 }
 
 module.exports = { handleCommand };
