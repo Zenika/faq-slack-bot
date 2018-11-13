@@ -3,8 +3,8 @@ const { makeCaroussel } = require("./transform");
 const faq = require("../../faq");
 
 // Handles command events
-async function handleCommand({ text: commandText, ...meta }) {
-  return new Promise((resolve, reject) => {
+function handleCommand({ text: commandText, ...meta }) {
+  return new Promise(async (resolve, reject) => {
     console.log("handleCommand", "text:", commandText, "meta:", meta);
     let message;
 
