@@ -94,19 +94,17 @@ app.post("/slackhook", (req, res) => {
 
   // Check if the command is sent with a search text.
   if (body.text) {
-    // Get the sender PSID
+    /*  // Get the sender PSID
     let user_id = body.user_id;
-    console.log("User_ID: " + user_id);
-
-    console.log("body.text: " + body.text);
+    console.log("User_ID: " + user_id); //TODO DELETE IF USELESS */
 
     // pass the event to the appropriate handler function
-    //handleCommand(body);
+    const result = handleCommand(body);
 
     // Return a '200 OK' response to all events
     res.status(200).send({
       response_type: "ephemeral",
-      text: "Search results"
+      ...result
     });
   } else {
     // Use a JSON payload to communicate the error back to the user as an ephemeral message.
