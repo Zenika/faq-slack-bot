@@ -8,7 +8,7 @@ function makeCaroussel(context, nodes = [], max = 9) {
     .map(({ id, question, answer }) =>
       SearchResult(
         context,
-        question ? question.title || "" : "Pas de question", //Should never occur //TODO ask
+        question ? question.title || "" : "Pas de question",
         answer ? answer.content || "" : "Question sans réponse",
         `https://faq.zenika.com/${
           question ? "q/" + (question.slug + "-" + id) : ""
