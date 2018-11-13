@@ -92,7 +92,7 @@ app.post("/slackhook", (req, res) => {
   console.log("\n\n--> slackhook b txt", body.text);
 
   // pass the parsed body to the appropriate handler function
-  const message = handleCommand(body);
+  const message = await handleCommand(body);
 
   // Return a '200 OK' response to all events
   res.status(200).send({
