@@ -6,7 +6,7 @@ function handleCommand({ text: commandText, ...meta }) {
 
   const result = SearchResult("LOL", commandText, "subtitle");
 
-  // Checks if the question exists
+  // Checks if the command's text exists
   if (commandText) {
     //TODO search for the query string
     //TODO limit to 9 results
