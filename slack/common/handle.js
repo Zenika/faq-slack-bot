@@ -1,13 +1,13 @@
 const SearchResult = require("../model/SearchResult");
 
 // Handles command events
-function handleCommand({ question: text, ...meta }) {
-  console.log("handleCommand", "text:", question, "meta:", meta);
+function handleCommand({ text: commandText, ...meta }) {
+  console.log("handleCommand", "text:", commandText, "meta:", meta);
 
-  const result = SearchResult("LOL", question, "subtitle");
+  const result = SearchResult("LOL", commandText, "subtitle");
 
   // Checks if the question exists
-  if (question) {
+  if (commandText) {
     //TODO search for the query string
     //TODO limit to 9 results
   }
