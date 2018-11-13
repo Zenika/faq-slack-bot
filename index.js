@@ -84,7 +84,7 @@ app.post("/webhook", (req, res) => {
  ****************************************/
 
 // Accepts POST requests at /slackhook endpoint
-app.post("/slackhook", (req, res) => {
+app.post("/slackhook", async (req, res) => {
   // Parse the body from the POST request
   let body = req.body;
 
