@@ -15,7 +15,7 @@ function handleCommand({ text: commandText, ...meta }) {
         const { search } = await faq(commandText);
 
         if (search.nodes && search.nodes.length > 0) {
-          message = makeCaroussel(commandText, search.nodes, 7);
+          message = makeCaroussel(commandText, search.nodes, 6);
           console.log("caroussel:", message);
         } else {
           message = {
