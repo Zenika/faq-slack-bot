@@ -1,3 +1,4 @@
+const normalizeUrl = require("normalize-url");
 const PostbackPayload = require("./PostbackPayload");
 
 function UnsatisfactorySearch(context, text) {
@@ -16,12 +17,14 @@ function UnsatisfactorySearch(context, text) {
           {
             type: "web_url",
             title: "Partager sur Workplace",
-            url: `https://work.facebook.com/sharer.php?display=popup&u=https://faq.zenika.com/?q=${context}&quote=${context}`
+            url: normalizeUrl(
+              `https://work.facebook.com/sharer.php?display=popup&u=https://faq.zenika.com/?q=${context}&quote=${context}`
+            )
           },
           {
             type: "web_url",
             title: "Rechercher dans FAQ",
-            url: `https://faq.zenika.com/?q=${context}`
+            url: normalizeUrl(`https://faq.zenika.com/?q=${context}`)
           }
         ]
       }
