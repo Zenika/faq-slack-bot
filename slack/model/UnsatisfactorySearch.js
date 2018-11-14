@@ -3,13 +3,7 @@ function UnsatisfactorySearch(context, text) {
     text: text,
     attachments: [
       {
-        text: "Reformuler la recherche",
-        fields: [
-          {
-            title: "Tu peux toujours faire ça :",
-            value: "Reformuler la recherche."
-          }
-        ]
+        text: "Tu peux toujours _reformuler la recherche_"
       },
       {
         attachment_type: "default",
