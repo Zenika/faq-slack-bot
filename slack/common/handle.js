@@ -1,5 +1,5 @@
 const { makeCaroussel } = require("./transform");
-
+const UnsatisfactorySearch = require("../model/UnsatisfactorySearch");
 const faq = require("../../faq");
 
 // Handles command events
@@ -18,9 +18,10 @@ function handleCommand({ text: commandText, ...meta }) {
           message = makeCaroussel(commandText, search.nodes, 5);
           console.log("caroussel:", message);
         } else {
-          message = {
-            text: `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça : //TODO`
-          };
+          message = UnsatisfactorySearch(
+            commandText,
+            `Désolé! Je n'ai rien trouvé  😭`
+          );
         }
       } catch (err) {
         console.log("handleCommand err : ", err);
