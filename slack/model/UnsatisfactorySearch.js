@@ -1,3 +1,5 @@
+const normalizeUrl = require("normalize-url");
+
 function UnsatisfactorySearch(context, text) {
   return {
     text: text,
@@ -16,13 +18,15 @@ function UnsatisfactorySearch(context, text) {
             type: "button",
             name: "search_in_faq",
             text: "Rechercher dans FAQ",
-            url: `https://faq.zenika.com/?q=${context}`
+            url: normalizeUrl(`https://faq.zenika.com/?q=${context}`)
           },
           {
             type: "button",
             name: "search_in_workplace",
             text: "Partager sur Workplace",
-            url: `https://work.facebook.com/sharer.php?display=popup&u=https://faq.zenika.com/?q=${context}&quote=${context}`
+            url: normalizeUrl(
+              `https://work.facebook.com/sharer.php?display=popup&u=https://faq.zenika.com/?q=${context}&quote=${context}`
+            )
           }
         ]
       }
