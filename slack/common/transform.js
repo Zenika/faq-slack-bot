@@ -15,12 +15,12 @@ function makeCaroussel(context, nodes = [], max = 9) {
       )
     )
     .slice(0, max);
-  //TODO more results like /gifs (pagination)
+
   caroussel.push(
     SearchResult(
-      context,
-      `Voir la liste complète des résultats dans FAQ:\n
-      https://faq.zenika.com/?q=${context}`
+      `Voir _${context}_ dans FAQ`,
+      `Voir la liste complète des résultats dans FAQ :\nhttps://faq.zenika.com/?q=${context}`,
+      `https://faq.zenika.com/?q=${context}`
     )
   );
 
