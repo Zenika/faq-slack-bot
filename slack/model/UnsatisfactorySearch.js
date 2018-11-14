@@ -16,7 +16,7 @@ function UnsatisfactorySearch(context, text) {
             type: "button",
             name: "search_in_faq",
             text: "Rechercher dans FAQ",
-            url: `https://faq.zenika.com/?q=${context}`
+            url: `<https://faq.zenika.com/?q=${context}>`
           },
           {
             type: "button",
