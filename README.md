@@ -34,12 +34,13 @@ Pour faire tourner Zenbot nous avons eu besoin de 2 features :
 - **Incoming Webhooks** : permet de poster des messages dans Slack depuis une source externe.
 - **Slash Commands** : permet aux utilisateurs d'effectuer des actions en tapant des commandes.
   Cette feature nécessite d'être configurée en renseignant :
+
   - un nom de commande (ex : _/faq_)
   - une url de requête (l'url que Slack contactera à chaque fois qu'un utilisateur entrera la commande _/faq_). Nous verrons à l'étape 3 comment obtenir cette url.
   - une courte description de la commande
   - une instruction d'utilisation (court message expliquant comment utiliser la commande).
 
-  _ici schema_
+  ![alt text](https://github.com/Zenika/Zenbot/blob/dev/docs/Capture%20d'%C3%A9cran%202018-11-23%2011.38.12.png "Slack: Configuration d'une App")
 
 Une fois que la configurations de l'application et ses commandes terminées, il vous faudra installer l'application depuis le volet **"Install your app to your workspace"**. Vous pourrez également choisir de distribuer votre application sur Slack, au delà de votre espace de travail.
 
