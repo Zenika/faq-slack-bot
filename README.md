@@ -40,6 +40,9 @@ Pour faire tourner Zenbot nous avons eu besoin d'activer 2 features :
   - une courte description de la commande
   - une instruction d'utilisation (court message expliquant comment utiliser la commande).
 
+  ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "slash-command /faq")
+
+
 Une fois que la configurations de l'application et ses commandes terminées, il vous faudra installer l'application depuis le volet **"Install your app to your workspace"**. Vous pourrez également choisir de distribuer votre application sur Slack, au delà de votre espace de travail.
 
 Pour de plus amples précisions sur la création d'une application, vous pouvez consulter ceci: [Building Slack apps](https://api.slack.com/slack-apps).
