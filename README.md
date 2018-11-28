@@ -54,6 +54,7 @@ And Voilà! Vous savez désormais configurer une application Slack ou Workplace.
 
 Un [webhook](https://en.wikipedia.org/wiki/Webhook) est une fonction de rappel HTTP (user-defined HTTP callback) généralement déclenchées lors d'un évènement (dans notre cas l'envoi d'un message à notre bot). Pour faire simple notre webhook jouera le rôle d'intermédiaire entre notre chatbot et la FAQ Zenika. Il nous permettra de recevoir, gérer et envoyer des messages.
 A chaque fois qu'un utilisateur écrira un message à notre bot, il sera envoyé au webhook qui effectuera une recherche auprès de l'Api de la FAQ, puis retournera une réponse (le plus souvent au format JSON) à l'utilisateur.
+
 La création de notre webhook consiste à ajouter quelques points de terminaison (endpoints) à un serveur HTTP comme [Express](https://expressjs.com/fr/) par exemple.
 
 #### Workplace
@@ -94,8 +95,7 @@ function callSendAPI(sender_psid, response) {}
 ```
 
 Ce qu'il faut retenir, c'est qu'on appelle toujours la fonction _callSendAPI_ pour envoyer une reponse lors de la réception d'un texto ou d'un retour.
-
-Enfin, il ne nous reste plus qu'à définir la structure de nos réponses. Celles-ci sont généralement au format JSON. Messenger dispose d'une grande variété de templates prédéfinis pour nous aider à contruire nos messages de réponse. On peut ainsi, envoyer un simple textos :
+Pour finir, il ne nous reste plus qu'à définir la structure de nos réponses. Celles-ci sont généralement au format JSON. Messenger dispose d'une grande variété de templates prédéfinis pour nous aider à contruire nos messages de réponse. On peut ainsi, envoyer un simple textos :
 
 ```Javascript
     response = {
@@ -141,11 +141,3 @@ Vous trouverez ici ([quick start](https://developers.facebook.com/docs/messenger
 #### Slack
 
 ## Etape 3 : Le déploiement
-
-#### Workplace
-
-#### Slack
-
-```
-
-```
