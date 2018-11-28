@@ -19,6 +19,8 @@ Sur Workplace, il s'agit de créer une **"Custom Intégration"**. Lorqsu'on cré
 
 A l'issue de cette configuration, un **token (Custom Integration token)** est généré. Ce token servira par la suite à légitimer toute les actions de votre **webhook** en tant que bot associé à l'application que vous venez de créer. Conservez le précieusement et ne le divulguez qu'aux personnes de confiance (ex: l'équipe de développement). Nous verons dans la suite de ce readme, comment utiliser ce token.
 
+![alt text](https://github.com/Zenika/Zenbot/blob/dev/docs/custom_integration_token.png "custom integration token")
+
 Vous trouverez plus de détails sur la création d'une application Workplace ici: [Creating Apps for Workplace](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/apps).
 
 #### Slack
@@ -71,7 +73,6 @@ Une fois notre endpoint principal configuré, nous aurons besoin de lui ajouter 
 - une fonction _handleMessage_ pour gerer les textos.
 - une fonction _handlePostback_ pour gerer les retours (clic boutons, sélections, etc).
 - une fonction _callSendAPI_ permettant d'envoyer des messages à l'utilisateur via l'API Send de Messenger.
-  Ce qu'il faut retenir, c'est qu'on appelle toujours la fonction _callSendAPI_ pour envoyer une reponse lors de la réception d'un texto ou d'un retour.
 
 ```Javascript
 // Handles messages events
@@ -91,6 +92,8 @@ function handlePostback(sender_psid, received_postback) {
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {}
 ```
+
+Ce qu'il faut retenir, c'est qu'on appelle toujours la fonction _callSendAPI_ pour envoyer une reponse lors de la réception d'un texto ou d'un retour.
 
 Enfin, il ne nous reste plus qu'à définir la structure de nos réponses. Celles-ci sont généralement au format JSON. Messenger dispose d'une grande variété de templates prédéfinis pour nous aider à contruire nos messages de réponse. On peut ainsi, envoyer un simple textos :
 
