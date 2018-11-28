@@ -135,7 +135,7 @@ response = {
 
 Vous trouverez tous les modèles prédéfinis de messages ici : [templates](https://developers.facebook.com/docs/messenger-platform/send-messages/templates).
 
-Voilà, vous connaissez les grandes lignes de la création d'un webhook pour la plateforme Messenger.
+Vous connaissez maintenant les grandes lignes de la création d'un webhook pour la plateforme Messenger.
 Vous trouverez ici ([quick start](https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start)) un tutoriel complet sur la conception d'un bot Messenger.
 
 #### Slack
