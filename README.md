@@ -6,7 +6,7 @@ _Ce Readme présente la démarche qui a permis de créer et d'intégrer Zenbot a
 
 ## Etape 1 : La configuration d'une application
 
-    La première étape de création d'un bot passe par la configuration d'une application qui représentera le bot et contrôlera ses accès sur la plateforme concernée.
+> La première étape de création d'un bot passe par la configuration d'une application qui représentera le bot et contrôlera ses accès sur la plateforme concernée.
 
 Cette configuration se fait manuellement au niveau de chaque plateforme. Elle permet de définir tout un tas d'informations sur le bot telles que son nom, une description, les différentes permissions qui lui sont accordées, etc.
 
@@ -69,19 +69,19 @@ Une fois notre endpoint principal configuré, nous aurons besoin de lui ajouter 
 - une fonction _handleMessage_ pour gerer les textos.
 - une fonction _handlePostback_ pour gerer les retours (clic boutons, sélections, etc).
 - une fonction _callSendAPI_ permettant d'envoyer des messages à l'utilisateur via l'API Send de Messenger.
-  Ce qu'il faut retenir, c'est qu'on appelle la fonction _callSendAPI_ pour envoyer une reponse lors de la réception d'un texto ou d'un retour.
+  Ce qu'il faut retenir, c'est qu'on appelle toujours la fonction _callSendAPI_ pour envoyer une reponse lors de la réception d'un texto ou d'un retour.
 
 ```Javascript
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
-     let response;
+     let response = {};
     //...
     callSendAPI(sender_psid, response);
 }
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
-    let response;
+    let response = {};
     //...
     callSendAPI(sender_psid, response);
 }
@@ -90,6 +90,49 @@ function handlePostback(sender_psid, received_postback) {
 function callSendAPI(sender_psid, response) {}
 ```
 
+Enfin, il ne nous reste plus qu'à définir la structure de nos réponses. Celles-ci sont généralement au format JSON. Messenger dispose d'une grande variété de templates prédéfinis pour nous aider à contruire nos messages de réponse. On peut ainsi, envoyer un simple textos :
+
+```Javascript
+    response = {
+      "text": `Hello! Je suis Zenbot 😊.`
+    }
+```
+
+ou bien un riche message composé d'un titre, d'une image et de boutons :
+
+```Javascript
+response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this the right picture?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": attachment_url,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          }]
+        }
+      }
+    }
+```
+
+Vous trouverez tous les modèles prédéfinis de messages ici : [templates](https://developers.facebook.com/docs/messenger-platform/send-messages/templates).
+
+Voilà, vous connaissez les grandes lignes de la création d'un webhook pour la plateforme Messenger.
+Vous trouverez ici ([quick start](https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start)) un tutoriel complet sur la conception d'un bot Messenger.
+
 #### Slack
 
 ## Etape 3 : Le déploiement
@@ -97,3 +140,7 @@ function callSendAPI(sender_psid, response) {}
 #### Workplace
 
 #### Slack
+
+```
+
+```
