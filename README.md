@@ -143,7 +143,7 @@ La configuration du webhook sur Workplace se fait en 2 étapes :
         handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
-     }
+      }
     });
 
     // Returns a '200 OK' response to all requests
