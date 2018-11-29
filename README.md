@@ -12,13 +12,16 @@ Elle permet de définir tout un tas d'informations sur le bot telles que son nom
 
 #### Workplace
 
-Sur Workplace, il s'agit de créer une **"Custom Intégration"**. Lorqsu'on crée une **"custom intération"**, 2 objets sont en fait crées :
+Sur Workplace, il s'agit de créer une **"Custom Intégration"**.
+Lorqsu'on crée une **"custom intération"**, 2 objets sont en fait crées :
 
 - Une application (avec des autorisations qui lui sont spécifiques).
 - Une page de type **Bot** (uniquement visible au sein de votre communauté Workplace).
   Cette page servira entre autre de point d'entrée et de découverte de votre bot sur workplace.
 
-A l'issue de cette configuration, un **token (Custom Integration token)** est généré. Ce token servira par la suite à légitimer toute les actions de votre **webhook** en tant que bot associé à l'application que vous venez de créer.
+Pendant la configuration, il vous sera demandé plusieurs informations sur votre bot dont l'URL sur laquelle le contacter. Nous verrons comment obtenir cette URL à l'étape 3.
+A l'issue de cette configuration, un **token (Custom Integration token)** est généré.
+Ce token servira par la suite à légitimer toute les actions de votre **webhook** en tant que bot associé à l'application que vous venez de créer.
 Conservez le précieusement et ne le divulguez qu'aux personnes de confiance (ex: l'équipe de développement).
 Nous verons dans la suite de ce readme, comment utiliser ce token.
 
@@ -175,4 +178,36 @@ Il est également possible de trouver sur le compte github de Slack une [feuille
 Voilà pour ce qu'il en est de la création d'un webhook pour slack.
 Vous trouverez plus de détails sur les intégrations Slack en général ici : [Building internal integrations for your workspace](https://api.slack.com/internal-integrations).
 
+Nous avons fini de configurer notre webhook, il faut maintenant le déployer pour le rendre disponibles sur web.
+
 ## Etape 3 : Le déploiement
+
+Pour déployer notre webhook, nous avons choisi d'utiliser la solution d'hébergement [Clever-cloud](https://www.clever-cloud.com/en/).
+Clever Cloud fournit aux développeurs une plate-forme d'automatisation informatique avec une infrastructure robuste et une mise à l'échelle automatique.
+L'avantage d'utiliser Clever-cloud réside dans l'automatisation, surtout l'automatisation du déploiement de chaque nouvelle version de notre bot.
+En effet, nous n'avons pas eu besoin d'utiliser d'outils d'intégration continue (CI).
+Une fois Clever-cloud connecté au repository git du projet, un simple _push_ sur la branche _master_ déclenche un redéploiement.
+Dans cette étape nous expliquerons commennt déployer notre webhook sur Clever-cloud.
+Depuis le tableau de bord (une fois loggué, et les organisations renseignées), il est possible de créer une nouvelle application. Pour ce faire, il faut:
+
+- cliquer sur le boutton : "**create**"
+  - puis choisir "**an application**"
+    - et enfin selectionner le repository du projet à partir du menu déroulant "**Select your Github repository**" .
+- Définir le type d'application que représente notre projet en choisissant _**Node**_ parmi la liste proposée.
+- Choisir le nombre d'instances nécessaires.
+- On peut ensuite ajouter une description et une région (de préference pour l'hébergement), puis cliquer sur "**CREATE**" pour lancer la création de notre application sur Clever-cloud.
+- Nous n'avons pas besoin d' _add-on_, nous pouvons donc passer l'étape correspondante et cliquer sur _next_.
+- Enfin, il nous est demandé de définir un certain nombre de variables d'environnement.
+  C'est le parfait endroit pour renseigner toutes les valeurs en dur de votre bot comme par exemple le _token de verification_ qui doit rester confidentiel.
+  Il faut finalement cliquer sur _Next_ pour lancer le déploiement de notre application sur un serveur.
+
+La vidéo [NodeJS Mongo demo](https://static-assets.cellar.services.clever-cloud.com/website/home/powerful-features-videos/deploy.mp4) résume bien ces différentes étapes de création d'une application sur Clever-cloud.
+
+Si tout s'est bien passé, une notification nous averti que le déploiement de notre application a été un succes.
+Yay! Notre bot est en ligne.
+Mais attention ce n'est pas encore fini.
+Nous devons encore récupérer l'URL sur laquelle notre bot a été déployé et la renseigner dans la configuration de la plateforme d'intégration de notre bot (Messenger/Slack) comme vu à l'étape 1.
+L'URL de déploiement est disponible et configurable à partir du menu "**_Domaine names_**" de notre application sur le tableaude bord Clever-cloud.
+
+C'est terminé!
+Nous pouvons maintenant tester que tout fonctionne correctement en écrivant quelques messages à notre bot depuis Messenger ou bien en tapant la commandes _/faq_ sur Slack! Et, petite cerise sur le gateau, ils est possible de configurer un message de bienvenu sur Messenger en suivant les instructions de la page [Welcome screen](https://developers.facebook.com/docs/messenger-platform/discovery/welcome-screen/).
