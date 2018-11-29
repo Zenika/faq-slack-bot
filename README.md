@@ -201,10 +201,8 @@ Depuis le tableau de bord (une fois loggué, et les organisations renseignées),
   C'est le parfait endroit pour renseigner toutes les valeurs en dur de votre bot comme par exemple le _token de verification_ qui doit rester confidentiel.
   Il faut finalement cliquer sur _Next_ pour lancer le déploiement de notre application sur un serveur.
 
-La vidéo [NodeJS Mongo demo](https://static-assets.cellar.services.clever-cloud.com/website/home/powerful-features-videos/deploy.mp4) résume bien ces différentes étapes de création d'une application sur Clever-cloud.
-![alt text](https://github.com/Zenika/Zenbot/blob/dev/docs/clever-cloud.png "Clever-cloud demo")
+La vidéo _NodeJS Mongo demo_ résume bien ces différentes étapes de création d'une application sur Clever-cloud:
 [![IMAGE ALT TEXT HERE](https://github.com/Zenika/Zenbot/blob/dev/docs/clever-cloud.png)](https://static-assets.cellar.services.clever-cloud.com/website/home/powerful-features-videos/deploy.mp4)
-
 
 Si tout s'est bien passé, une notification nous averti que le déploiement de notre application a été un succes.
 Yay! Notre bot est en ligne.
