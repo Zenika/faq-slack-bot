@@ -73,7 +73,7 @@ Pour faire simple notre webhook jouera le rôle d'intermédiaire entre notre cha
 Il nous permettra de recevoir, gérer et envoyer des messages.
 A chaque fois qu'un utilisateur écrira un message à notre bot, il sera envoyé au webhook qui effectuera une recherche auprès de l'Api de la FAQ, puis retournera une réponse (le plus souvent au format JSON) à l'utilisateur.
 
-La création de notre webhook consiste à ajouter quelques points de terminaison (endpoints) à un serveur HTTP comme [Express](https://expressjs.com/fr/) par exemple.
+La création de notre webhook consiste à créer quelques points de terminaison (endpoints) sur un serveur HTTP comme [Express](https://expressjs.com/fr/) par exemple.
 
 #### Workplace
 
@@ -201,7 +201,7 @@ Il y a ici 2 choses importantes à retenir:
 
 Pour finir, il ne nous reste plus qu'à définir la structure de nos réponses. Celles-ci sont généralement au format JSON.
 Messenger dispose d'une grande variété de [templates](https://developers.facebook.com/docs/messenger-platform/send-messages/templates) prédéfinis pour nous aider à contruire nos messages de réponse.
-On peut ainsi, envoyer un simple textos :
+On peut ainsi, envoyer un simple texto :
 
 ```Javascript
     response = {
@@ -259,13 +259,13 @@ Pour tout savoir du fonctionnement d'une slash-command et de l'implémentation d
 
 Tout comme Messenger, Slack dispose d'un système de templating pour les réponses au format JSON. Ce système de templating va nous aider à structurer et enrichir nos messages.
 En plus de la structuration des messages, slack offre une grande variété d'outils de formatage des messages incluant le formatage des dates, l'ajout de fragments de code, etc.
-La page "[An introduction to messages](https://api.slack.com/docs/messages)" explique en détail comment composer un message structuré.
+La page [An introduction to messages](https://api.slack.com/docs/messages) explique en détail comment composer un message structuré.
 Il est également possible de trouver sur le compte github de Slack une [feuille de route](https://github.com/slackapi/slack-platform-assets) des templates les plus communément utilisés.
 
 Voilà pour ce qu'il en est de la création d'un webhook pour slack.
 Vous trouverez plus de détails sur les intégrations Slack en général ici : [Building internal integrations for your workspace](https://api.slack.com/internal-integrations).
 
-Nous avons fini de configurer notre webhook, il faut maintenant le déployer pour le rendre disponibles sur web.
+Nous avons fini de configurer notre webhook, il faut maintenant le déployer pour le rendre disponible sur web.
 
 ## Etape 3 : Le déploiement
 
@@ -275,27 +275,28 @@ L'avantage d'utiliser Clever-cloud réside dans l'automatisation, surtout l'auto
 En effet, nous n'avons pas eu besoin d'utiliser d'outils d'intégration continue (CI).
 Une fois Clever-cloud connecté au repository git du projet, un simple _push_ sur la branche _master_ déclenche un redéploiement.
 Dans cette étape nous expliquerons commennt déployer notre webhook sur Clever-cloud.
-Depuis le tableau de bord (une fois loggué, et les organisations renseignées), il est possible de créer une nouvelle application. Pour ce faire, il faut:
+Depuis le tableau de bord (une fois loggué, et les organisations renseignées), il est possible de créer une nouvelle application.
+Pour ce faire, il faut:
 
 - cliquer sur le boutton : "**create**"
   - puis choisir "**an application**"
     - et enfin selectionner le repository du projet à partir du menu déroulant "**Select your Github repository**" .
 - Définir le type d'application que représente notre projet en choisissant _**Node**_ parmi la liste proposée.
 - Choisir le nombre d'instances nécessaires.
-- On peut ensuite ajouter une description et une région (de préference pour l'hébergement), puis cliquer sur "**CREATE**" pour lancer la création de notre application sur Clever-cloud.
-- Nous n'avons pas besoin d' _add-on_, nous pouvons donc passer l'étape correspondante et cliquer sur _next_.
+- On peut ensuite ajouter une description et une région (de préférence pour l'hébergement), puis cliquer sur "**CREATE**" pour lancer la création de notre application sur Clever-cloud.
+- Nous n'avons pas besoin d'_add-on_, nous pouvons donc passer l'étape correspondante et cliquer directement sur _next_.
 - Enfin, il nous est demandé de définir un certain nombre de variables d'environnement.
-  C'est le parfait endroit pour renseigner toutes les valeurs en dur de votre bot comme par exemple le _token de verification_ qui doit rester confidentiel.
-  Il faut finalement cliquer sur _Next_ pour lancer le déploiement de notre application sur un serveur.
+  C'est le parfait endroit pour renseigner toutes les valeurs en dur de notre bot comme par exemple le _token de verification_ qui doit rester confidentiel.
+  Il faut finalement cliquer sur _Next_ pour lancer le déploiement de notre application sur le web.
 
 La vidéo _NodeJS Mongo demo_ résume bien ces différentes étapes de création d'une application sur Clever-cloud:
 [![IMAGE ALT TEXT HERE](https://github.com/Zenika/Zenbot/blob/dev/docs/clever_cloud.png)](https://static-assets.cellar.services.clever-cloud.com/website/home/powerful-features-videos/deploy.mp4)
 
 Si tout s'est bien passé, une notification nous averti que le déploiement de notre application a été un succes.
-Yay! Notre bot est en ligne.
+Yay! Notre bot est en ligne 🎉🎉🎉 .
 Mais attention ce n'est pas encore fini.
 Nous devons encore récupérer l'URL sur laquelle notre bot a été déployé et la renseigner dans la configuration de la plate-forme d'intégration de notre bot (Messenger/Slack) comme vu à l'étape 1.
-L'URL de déploiement est disponible et configurable à partir du menu "**_Domaine names_**" de notre application sur le tableaude bord Clever-cloud.
+L'URL de déploiement est disponible et configurable à partir du menu "**_Domaine names_**" de notre application sur le tableau de bord Clever-cloud.
 
 C'est terminé!
-Nous pouvons maintenant tester que tout fonctionne correctement en écrivant quelques messages à notre bot depuis Messenger ou bien en tapant la commandes _/faq_ sur Slack! Et, petite cerise sur le gateau, ils est possible de configurer un message de bienvenu sur Messenger en suivant les instructions de la page [Welcome screen](https://developers.facebook.com/docs/messenger-platform/discovery/welcome-screen/).
+Nous pouvons maintenant tester que tout fonctionne correctement en écrivant quelques messages à notre bot depuis Messenger ou bien en utilisant la commandes _/faq_ sur Slack! Et, petite cerise sur le gateau, ils est possible de configurer un message de bienvenu sur Messenger en suivant les instructions de la page [Welcome screen](https://developers.facebook.com/docs/messenger-platform/discovery/welcome-screen/).
