@@ -1,8 +1,8 @@
 # Zenbot - Un chatbot qui répond aux questions en consultant la FAQ.
 
-Zenbot permet l'intégration (interfaçage) de l'API de la [FAQ Zenika](https://faq.zenika.com) au sein de messageries instantanées telles que Messenger ou Slack .
+Zenbot permet l'intégration (interfaçage) de l'API de la [FAQ Zenika](https://faq.zenika.com) au sein de messageries instantanées telles que Messenger ou Slack.
 
-_Ce Readme présente la démarche qui a permis de créer et d'intégrer Zenbot aux plate-formes [Messenger](https://developers.facebook.com/docs/messenger-platform) et [Slack](https://api.slack.com)._
+_Ce Readme présente en 3 étapes la démarche qui a permis de créer et d'intégrer Zenbot aux plate-formes [Messenger](https://developers.facebook.com/docs/messenger-platform) et [Slack](https://api.slack.com)._
 
 ## Etape 1 : La configuration d'une application
 
