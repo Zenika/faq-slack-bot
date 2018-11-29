@@ -2,12 +2,12 @@
 
 Zenbot permet l'intégration (interfaçage) de l'API de la [FAQ de Zenika](https://faq.zenika.com) au sein de messageries instantanées telles que Messenger ou Slack .
 
-_Ce Readme présente la démarche qui a permis de créer et d'intégrer Zenbot aux plateformes [Messenger](https://developers.facebook.com/docs/messenger-platform) et [Slack](https://api.slack.com)._
+_Ce Readme présente la démarche qui a permis de créer et d'intégrer Zenbot aux plate-formes [Messenger](https://developers.facebook.com/docs/messenger-platform) et [Slack](https://api.slack.com)._
 
 ## Etape 1 : La configuration d'une application
 
-La première étape de création d'un bot passe par la configuration d'une application qui représentera le bot et contrôlera ses actions sur la plateforme concernée.
-Cette configuration se fait manuellement au niveau de chaque plateforme.
+La première étape de création d'un bot passe par la configuration d'une application qui représentera le bot et contrôlera ses actions sur la plate-forme concernée.
+Cette configuration se fait manuellement au niveau de chaque plate-forme.
 Elle permet de définir tout un tas d'informations sur le bot telles que son nom, une description, les différentes permissions qui lui sont accordées, etc.
 
 #### Workplace
@@ -16,17 +16,20 @@ Sur Workplace, il s'agit de créer une **"Custom Intégration"**.
 Lorqsu'on crée une **"custom intégration"**, 2 objets sont en fait crées :
 
 - Une application (avec des autorisations qui lui sont spécifiques).
-- Une page de type **Bot** (uniquement visible au sein de notre communauté Workplace).
+- Une page de type **Bot** (uniquement visible au sein de votre communauté Workplace).
   Cette page servira entre autre de point d'entrée et de découverte de votre bot sur workplace.
 
 Pendant la configuration, il vous sera demandé plusieurs informations sur votre bot dont l'URL sur laquelle le contacter.
 Nous verrons comment obtenir cette URL à l'étape 3.
-A l'issue de cette configuration, un **token (Custom Integration token)** est généré.
-Ce token servira par la suite à légitimer toute les actions de votre **webhook** en tant que bot associé à l'application que vous venez de créer.
+Il vous sera aussi démandé de définir un token de vérification _verify token_.
+Ce token permet de vérifier l'authenticité des échanges entre la plate-forme Messenger et le **webhook déployé sur votre serveur**.
+Nous y reviendrons dans la suite.
+A l'issue de cette configuration, un **token (Page Accesss Token)** est généré.
+Ce token servira par la suite à légitimer toute les actions de votre webhook en tant que bot associé à l'application que vous venez de créer.
 Conservez le précieusement et ne le divulguez qu'aux personnes de confiance (ex: l'équipe de développement).
 Nous verons dans la suite de ce readme, comment utiliser ce token.
 
-![alt text](https://github.com/Zenika/Zenbot/blob/dev/docs/custom_integration_token.png "custom integration token")
+![alt text](https://github.com/Zenika/Zenbot/blob/dev/docs/custom_integration_token.png "Page Accesss Token")
 
 Vous trouverez plus de détails sur la création d'une application Workplace ici: [Creating Apps for Workplace](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/apps).
 
@@ -34,7 +37,7 @@ Vous trouverez plus de détails sur la création d'une application Workplace ici
 
 Pour ce qui est de l'intégration de Zenbot dans Slack, nous avons fait le choix d'utiliser les **Slash Commands**.
 Les **Slash Commands** permettent à l'utilisateur d'effectuer des actions (dans notre cas des recherches) en tapant des commandes depuis slack.
-Par exemple, pour consulter la FAQ à propos des "notes de frais" l'utilisateur pourra taper la commande _"/faq note de frais"_ depuis slack; il verra alors s'afficher une liste de résultats correspondant à sa recherche.
+Par exemple, pour consulter la FAQ à propos des _"notes de frais"_ l'utilisateur pourra taper la commande _"/faq note de frais"_ depuis slack; il verra alors s'afficher une liste de résultats correspondant à sa recherche.
 
 La page [Mes Applications](https://api.slack.com/apps) liste l'ensemble des applications que vous possédez sur Slack.
 Pour en créer une nouvelle, il suffit de cliquer sur le bouton **"Create New App"** depuis cette page, puis renseigner le nom de l' application et l'espace de travail (**Development Slack Workspace**) auquel elle sera associée.
@@ -78,7 +81,7 @@ La création de notre webhook consiste à ajouter quelques points de terminaison
 La configuration du webhook sur Workplace se fait en 2 étapes :
 
 - L'ajout du endpoint de vérification du webhook. Sur ce endpoint seront envoyées des requêtes de type GET servant à vérifier le token défini lors de la création de la **"Custom Intégration"** vue à l'étape 1.
-  Cette étape est requise par la plateforme Messenger pour garantir l'authenticité de notre webhook.
+  Cette étape est requise par la plate-forme Messenger pour garantir l'authenticité de notre webhook.
 
 - L'ajout du endpoint principal.
   Sur ce endpoint seront envoyées des requêtes de type POST correspondant aux messages envoyés par les utilisateurs.
@@ -109,10 +112,36 @@ function handlePostback(sender_psid, received_postback) {
 }
 
 // Sends response messages via the Send API
-function callSendAPI(sender_psid, response) {}
+function callSendAPI(sender_psid, response) {
+  // Construct the message body
+  let request_body = {
+    "recipient": {
+      "id": sender_psid
+    },
+    "message": response
+  }
+
+  // Send the HTTP request to the Messenger Platform
+  request({
+    "uri": "https://graph.facebook.com/v2.6/me/messages",
+    "qs": { "access_token": PAGE_ACCESS_TOKEN }, //do not forget to specify the Page Access Token
+    "method": "POST",
+    "json": request_body
+  }, (err, res, body) => {
+    if (!err) {
+      console.log('message sent!')
+    } else {
+      console.error("Unable to send message:" + err);
+    }
+  });
+}
 ```
 
-Ce qu'il faut retenir, c'est qu'on appelle toujours la fonction _callSendAPI_ pour envoyer une reponse lors de la réception d'un texto ou d'un retour.
+Il y a ici 2 choses importantes à retenir:
+
+- On appelle toujours la fonction _callSendAPI_ pour envoyer une reponse lors de la réception d'un texto ou d'un retour.
+- Pour que la requête de réponse soit acceptée par la plate-forme Messenger, il faut **obligatoirement** ajouter dans le paramètre _qs (query string)_ de la requête le token **_Page Access Token_** généré à l'issue de l'étape 1.
+
 Pour finir, il ne nous reste plus qu'à définir la structure de nos réponses. Celles-ci sont généralement au format JSON.
 Messenger dispose d'une grande variété de [templates](https://developers.facebook.com/docs/messenger-platform/send-messages/templates) prédéfinis pour nous aider à contruire nos messages de réponse.
 On peut ainsi, envoyer un simple textos :
@@ -153,7 +182,7 @@ response = {
     }
 ```
 
-Vous connaissez maintenant les grandes lignes de la création d'un webhook pour la plateforme Messenger.
+Vous connaissez maintenant les grandes lignes de la création d'un webhook pour la plate-forme Messenger.
 Vous trouverez ici ([quick start](https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start)) un tutoriel complet sur la conception d'un bot Messenger.
 
 #### Slack
@@ -208,7 +237,7 @@ La vidéo _NodeJS Mongo demo_ résume bien ces différentes étapes de création
 Si tout s'est bien passé, une notification nous averti que le déploiement de notre application a été un succes.
 Yay! Notre bot est en ligne.
 Mais attention ce n'est pas encore fini.
-Nous devons encore récupérer l'URL sur laquelle notre bot a été déployé et la renseigner dans la configuration de la plateforme d'intégration de notre bot (Messenger/Slack) comme vu à l'étape 1.
+Nous devons encore récupérer l'URL sur laquelle notre bot a été déployé et la renseigner dans la configuration de la plate-forme d'intégration de notre bot (Messenger/Slack) comme vu à l'étape 1.
 L'URL de déploiement est disponible et configurable à partir du menu "**_Domaine names_**" de notre application sur le tableaude bord Clever-cloud.
 
 C'est terminé!
