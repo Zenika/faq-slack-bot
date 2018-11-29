@@ -6,22 +6,23 @@ _Ce Readme présente la démarche qui a permis de créer et d'intégrer Zenbot a
 
 ## Etape 1 : La configuration d'une application
 
-La première étape de création d'un bot passe par la configuration d'une application qui représentera le bot et contrôlera ses accès sur la plateforme concernée.
+La première étape de création d'un bot passe par la configuration d'une application qui représentera le bot et contrôlera ses actions sur la plateforme concernée.
 Cette configuration se fait manuellement au niveau de chaque plateforme.
 Elle permet de définir tout un tas d'informations sur le bot telles que son nom, une description, les différentes permissions qui lui sont accordées, etc.
 
 #### Workplace
 
 Sur Workplace, il s'agit de créer une **"Custom Intégration"**.
-Lorqsu'on crée une **"custom intération"**, 2 objets sont en fait crées :
+Lorqsu'on crée une **"custom intégration"**, 2 objets sont en fait crées :
 
 - Une application (avec des autorisations qui lui sont spécifiques).
-- Une page de type **Bot** (uniquement visible au sein de votre communauté Workplace).
+- Une page de type **Bot** (uniquement visible au sein de notre communauté Workplace).
   Cette page servira entre autre de point d'entrée et de découverte de votre bot sur workplace.
 
-Pendant la configuration, il vous sera demandé plusieurs informations sur votre bot dont l'URL sur laquelle le contacter. Nous verrons comment obtenir cette URL à l'étape 3.
+Pendant la configuration, il vous sera demandé plusieurs informations sur votre bot dont l'URL sur laquelle le contacter.
+Nous verrons comment obtenir cette URL à l'étape 3.
 A l'issue de cette configuration, un **token (Custom Integration token)** est généré.
-Ce token servira par la suite à légitimer toute les actions de votre **webhook** en tant que bot associé à l'application que vous venez de créer.
+Ce token servira par la suite à légitimer toute les actions de votre [webhook](## Etape2) en tant que bot associé à l'application que vous venez de créer.
 Conservez le précieusement et ne le divulguez qu'aux personnes de confiance (ex: l'équipe de développement).
 Nous verons dans la suite de ce readme, comment utiliser ce token.
 
@@ -63,7 +64,7 @@ Pour de plus amples précisions sur la création d'une application, vous pouvez 
 
 And Voilà! Vous savez désormais configurer une application Slack ou Workplace. Nous allons maintenant voir comment coder un **webhook** pour répondre aux reqûetes des utilisateurs.
 
-## Etape 2 : La création de Webhooks
+## Etape2 : La création de Webhooks
 
 Un [webhook](https://en.wikipedia.org/wiki/Webhook) est une fonction de rappel HTTP (user-defined HTTP callback) généralement déclenchées lors d'un évènement (dans notre cas l'envoi d'un message à notre bot).
 Pour faire simple notre webhook jouera le rôle d'intermédiaire entre notre chatbot et la FAQ Zenika.
