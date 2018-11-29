@@ -22,7 +22,7 @@ Lorqsu'on crée une **"custom intégration"**, 2 objets sont en fait crées :
 Pendant la configuration, il vous sera demandé plusieurs informations sur votre bot dont l'URL sur laquelle le contacter.
 Nous verrons comment obtenir cette URL à l'étape 3.
 A l'issue de cette configuration, un **token (Custom Integration token)** est généré.
-Ce token servira par la suite à légitimer toute les actions de votre [webhook](## Etape2) en tant que bot associé à l'application que vous venez de créer.
+Ce token servira par la suite à légitimer toute les actions de votre [**webhook**](#Etape 2 : La création de Webhooks) en tant que bot associé à l'application que vous venez de créer.
 Conservez le précieusement et ne le divulguez qu'aux personnes de confiance (ex: l'équipe de développement).
 Nous verons dans la suite de ce readme, comment utiliser ce token.
 
@@ -64,7 +64,7 @@ Pour de plus amples précisions sur la création d'une application, vous pouvez 
 
 And Voilà! Vous savez désormais configurer une application Slack ou Workplace. Nous allons maintenant voir comment coder un **webhook** pour répondre aux reqûetes des utilisateurs.
 
-## Etape2 : La création de Webhooks
+## Etape 2 : La création de Webhooks
 
 Un [webhook](https://en.wikipedia.org/wiki/Webhook) est une fonction de rappel HTTP (user-defined HTTP callback) généralement déclenchées lors d'un évènement (dans notre cas l'envoi d'un message à notre bot).
 Pour faire simple notre webhook jouera le rôle d'intermédiaire entre notre chatbot et la FAQ Zenika.
