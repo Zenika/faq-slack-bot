@@ -1,6 +1,6 @@
 # Zenbot - Un chatbot qui répond aux questions en consultant la FAQ.
 
-Zenbot permet l'intégration (interfaçage) de l'API de la [FAQ de Zenika](https://faq.zenika.com) au sein de messageries instantanées telles que Messenger ou Slack .
+Zenbot permet l'intégration (interfaçage) de l'API de la [FAQ Zenika](https://faq.zenika.com) au sein de messageries instantanées telles que Messenger ou Slack .
 
 _Ce Readme présente la démarche qui a permis de créer et d'intégrer Zenbot aux plate-formes [Messenger](https://developers.facebook.com/docs/messenger-platform) et [Slack](https://api.slack.com)._
 
@@ -23,7 +23,6 @@ Pendant la configuration, il vous sera demandé plusieurs informations sur votre
 Nous verrons comment obtenir cette URL à l'étape 3.
 Il vous sera aussi démandé de définir un token de vérification _verify token_.
 Ce token permet de vérifier l'authenticité des échanges entre la plate-forme Messenger et le **webhook déployé sur votre serveur**.
-Nous y reviendrons dans la suite.
 A l'issue de cette configuration, un **token (Page Accesss Token)** est généré.
 Ce token servira par la suite à légitimer toute les actions de votre webhook en tant que bot associé à l'application que vous venez de créer.
 Conservez le précieusement et ne le divulguez qu'aux personnes de confiance (ex: l'équipe de développement).
@@ -80,16 +79,74 @@ La création de notre webhook consiste à ajouter quelques points de terminaison
 
 La configuration du webhook sur Workplace se fait en 2 étapes :
 
-- L'ajout du endpoint de vérification du webhook. Sur ce endpoint seront envoyées des requêtes de type GET servant à vérifier le token défini lors de la création de la **"Custom Intégration"** vue à l'étape 1.
+- L'ajout du _endpoint de vérification du webhook_.
+  Sur ce endpoint seront envoyées des requêtes de type GET servant à vérifier le token **"Verify Token"** défini lors de la configuration de la **"Custom Intégration"** vue à l'étape 1.
   Cette étape est requise par la plate-forme Messenger pour garantir l'authenticité de notre webhook.
 
-- L'ajout du endpoint principal.
+  ```Javascript
+  // Adds support for GET requests to our webhook
+  app.get('/webhook', (req, res) => {
+
+  // Your verify token. Should be a random string.
+  let VERIFY_TOKEN = "<YOUR_VERIFY_TOKEN>"
+
+  // Parse the query params
+  let mode = req.query['hub.mode'];
+  let token = req.query['hub.verify_token'];
+  let challenge = req.query['hub.challenge'];
+
+  // Checks if a token and mode is in the query string of the request
+  if (mode && token) {
+
+    // Checks the mode and token sent is correct
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+
+      // Responds with the challenge token from the request
+      console.log('WEBHOOK_VERIFIED');
+      res.status(200).send(challenge);
+
+    } else {
+      // Responds with '403 Forbidden' if verify tokens do not match
+      res.sendStatus(403);
+    }
+  }
+  });
+  ```
+
+- L'ajout du _endpoint principal_.
   Sur ce endpoint seront envoyées des requêtes de type POST correspondant aux messages envoyés par les utilisateurs.
+
+  ```Javascript
+  // Creates the endpoint for our webhook
+  app.post('/webhook', (req, res) => {
+
+  let body = req.body;
+
+  // Checks this is an event from a page subscription
+  if (body.object === 'page') {
+
+    // Iterates over each entry - there may be multiple if batched
+    body.entry.forEach(function(entry) {
+
+      // Gets the message. entry.messaging is an array, but
+      // will only ever contain one message, so we get index 0
+      let webhook_event = entry.messaging[0];
+      console.log(webhook_event);
+    });
+
+    // Returns a '200 OK' response to all requests
+    res.status(200).send('EVENT_RECEIVED');
+  } else {
+    // Returns a '404 Not Found' if event is not from a page subscription
+    res.sendStatus(404);
+  }
+  });
+  ```
 
 Vous trouverez plus de détails sur la configuration du webhook ici : [webhook setup](https://developers.facebook.com/docs/messenger-platform/getting-started/webhook-setup/).
 
 Messenger définit 2 types d'évènements entrant: les **messages** et les **postbacks**.
-Les messages représentent les messages textuels écrits par l'utilisateur (textos) tandis que les postbacks sont des retours (clic sur un bouton envoyé par le webhook par exemple).
+Les messages représentent les messages textuels écrits par l'utilisateur (textos) tandis que les postbacks sont des retours (clic sur un bouton par exemple).
 Une fois notre endpoint principal configuré, nous aurons besoin de lui ajouter des fonctions de gestion d'évènements :
 
 - une fonction _handleMessage_ pour gerer les textos.
