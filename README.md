@@ -22,7 +22,7 @@ Lorqsu'on crée une **"custom intégration"**, 2 objets sont en fait crées :
 Pendant la configuration, il vous sera demandé plusieurs informations sur votre bot dont l'URL sur laquelle le contacter.
 Nous verrons comment obtenir cette URL à l'étape 3.
 A l'issue de cette configuration, un **token (Custom Integration token)** est généré.
-Ce token servira par la suite à légitimer toute les actions de votre [**webhook**](#Etape 2 : La création de Webhooks) en tant que bot associé à l'application que vous venez de créer.
+Ce token servira par la suite à légitimer toute les actions de votre **webhook** en tant que bot associé à l'application que vous venez de créer.
 Conservez le précieusement et ne le divulguez qu'aux personnes de confiance (ex: l'équipe de développement).
 Nous verons dans la suite de ce readme, comment utiliser ce token.
 
