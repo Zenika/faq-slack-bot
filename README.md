@@ -2,7 +2,7 @@
 
 Zenbot permet l'intégration (interfaçage) de l'API de la [FAQ Zenika](https://faq.zenika.com) au sein de messageries instantanées telles que Messenger ou Slack.
 
-_Ce Readme présente en 3 étapes la démarche qui a permis de créer et d'intégrer Zenbot aux plate-formes [Messenger](https://developers.facebook.com/docs/messenger-platform) et [Slack](https://api.slack.com)._
+_Ce Readme présente en 3 étapes la démarche qui a permis de créer et d'intégrer Zenbot aux plate-formes [Messenger](https://www.messenger.com/) et [Slack](https://slack.com)._
 
 ## Etape 1 : La configuration d'une application
 
@@ -312,3 +312,5 @@ L'URL de déploiement est disponible et configurable à partir du menu "**_Domai
 
 C'est terminé!
 Nous pouvons maintenant tester que tout fonctionne correctement en écrivant quelques messages à notre bot depuis Messenger ou bien en utilisant la commandes _/faq_ sur Slack! Et, petite cerise sur le gateau, ils est possible de configurer un message de bienvenu sur Messenger en suivant les instructions de la page [Welcome screen](https://developers.facebook.com/docs/messenger-platform/discovery/welcome-screen/).
+
+Pour finir, voici les liens vers les documentations respectives des plateformes [Messenger](https://developers.facebook.com/docs/messenger-platform) et [Slack](https://api.slack.com).
