@@ -7,7 +7,7 @@ function SearchResult(context, title, subtitle, action_url, image_url) {
     image_url: image_url,
     default_action: {
       type: "web_url",
-      url: `https://faq.zenika.com/?q=${context}`,
+      url: null,
       messenger_extensions: false,
       webview_height_ratio: "tall"
     },
