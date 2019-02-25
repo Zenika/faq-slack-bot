@@ -1,6 +1,6 @@
 const secret = process.env.FAQ_SECRET;
 const userId = process.env.FAQ_USER_ID;
-const faqUrl = process.env.FAQ_URL;
+const faqGqlUrl = process.env.FAQ_GQL_URL;
 const prismaService = process.env.PRISMA_SERVICE;
 
 const jwt = require("jsonwebtoken"),
@@ -31,7 +31,7 @@ const faq = (text, first = 9, skip = 0) => {
     request(
       {
         method: "POST",
-        uri: faqUrl,
+        uri: faqGqlUrl,
         headers: {
           Authorization: `API ${token}`,
           "prisma-service": prismaService
