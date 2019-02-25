@@ -1,3 +1,5 @@
+const faqUrl = process.env.FAQ_URL;
+
 const normalizeUrl = require("normalize-url");
 const PostbackPayload = require("./PostbackPayload");
 
@@ -18,13 +20,13 @@ function UnsatisfactorySearch(context, text) {
             type: "web_url",
             title: "Partager sur Workplace",
             url: normalizeUrl(
-              `https://work.facebook.com/sharer.php?display=popup&u=https://faq.zenika.com/?q=${context}&quote=${context}`
+              `https://work.facebook.com/sharer.php?display=popup&u=${faqUrl}/?q=${context}&quote=${context}`
             )
           },
           {
             type: "web_url",
             title: "Rechercher dans FAQ",
-            url: normalizeUrl(`https://faq.zenika.com/?q=${context}`)
+            url: normalizeUrl(`${faqUrl}/?q=${context}`)
           }
         ]
       }
