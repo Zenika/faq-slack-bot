@@ -1,3 +1,4 @@
+const faqUrl = process.env.FAQ_URL;
 const Caroussel = require("../model/Caroussel"),
   SearchResult = require("../model/SearchResult");
 
@@ -9,7 +10,7 @@ function makeCaroussel(context, nodes = [], max = 9) {
       SearchResult(
         question ? question.title || "" : "Pas de question",
         answer ? answer.content || "" : "Question sans réponse",
-        `https://faq.zenika.com/${
+        `${faqUrl}/${
           question ? "q/" + (question.slug + "-" + id) : ""
         }`
       )
@@ -19,8 +20,8 @@ function makeCaroussel(context, nodes = [], max = 9) {
   caroussel.push(
     SearchResult(
       `Voir '${context}' dans FAQ`,
-      `<https://faq.zenika.com/?q=${context}|Voir la liste complète des résultats dans FAQ.>`,
-      `https://faq.zenika.com/?q=${context}`
+      `<${faqUrl}/?q=${context}|Voir la liste complète des résultats dans FAQ.>`,
+      `${faqUrl}/?q=${context}`
     )
   );
 
