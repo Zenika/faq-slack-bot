@@ -1,53 +1,51 @@
-const secret = process.env.FAQ_SECRET;
-const userId = process.env.FAQ_USER_ID;
-const faqGqlUrl = process.env.FAQ_GQL_URL;
-const prismaService = process.env.PRISMA_SERVICE;
+const faq = require('./faq'); 
 
-const jwt = require("jsonwebtoken"),
-  request = require("request");
+const faqUrl = process.env.FAQ_URL;
 
-const faq = (text, first = 9, skip = 0) => {
-  const query = `{
-    search(text: "${text}", first: ${first}, skip:${skip}) {
-      nodes {
-        id
-        question {
-          id
-          slug
-          title
-        }
-        answer {
-          content
-        }
-      }
+function searchFaq(text, Result, max=9) {
+        let  caroussel = [];
+ 
+ // Start a search session for the query string by requesting the FAQ's API
+ const { search: results } = await faq(text);
+
+ if (results && results.nodes) {
+   
+   const { nodes } = results;
+
+     caroussel = nodes
+     .map(({ id, question, answer }) =>
+       Result(
+        text,
+         question ? question.title || '' : 'Pas de question',
+         answer ? answer.content || '' : 'Question sans réponse',
+         `${faqUrl}/${
+           question ? 'q/' + (question.slug + '-' + id) : ''
+         }`,
+         faqUrl
+       )
+     )
+     .slice(0, max);
+
+   caroussel.push(
+     Result(
+      text,
+       `Voir '${text}' dans FAQ`,
+       `<${faqUrl}/?q=${text}|Voir la liste complète des résultats dans FAQ.>`,
+       `${faqUrl}/?q=${text}`,
+       faqUrl
+     )
+
+     /* caroussel.push(
+      SearchResult(
+        text,
+        text,
+        'Voir la liste complète des résultats dans FAQ.',
+        `${faqUrl}/?q=${text}`
+      )
+    ); */
+   );
+     }
+     return [caroussel, faqUrl];
     }
-  }`;
 
-  return new Promise((resolve, reject) => {
-    //request a new token before each call to the FAQ's api
-    const token = jwt.sign({ userId, prismaService }, secret);
-
-    // Send the HTTP request to the FAQ's API
-    request(
-      {
-        method: "POST",
-        uri: faqGqlUrl,
-        headers: {
-          Authorization: `API ${token}`,
-          "prisma-service": prismaService
-        },
-        json: { query }
-      },
-      (err, res, body) => {
-        if (err) reject(error);
-
-        if (res.statusCode !== 200)
-          reject(new Error(res.statusCode + " " + res.statusMessage));
-
-        resolve(body.data);
-      }
-    );
-  });
-};
-
-module.exports = faq;
+    module.exports =  searchFaq;

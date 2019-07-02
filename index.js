@@ -3,14 +3,19 @@
 // Imports dependencies and set up http server
 const express = require('express'),
   bodyParser = require('body-parser'),
-  { handleMessage, handlePostback } = require('./messenger/common/handle'),
-  { handleCommand } = require('./slack/common/handle'),
+  {
+    handleMessage,
+    handlePostback
+  } = require('./search/provider/faq/messenger'),
+  { handleCommand } = require('./search/provider/faq/slack'),
   app = express() // creates express http server
     .use(bodyParser.json()) // support json encoded bodies
     .use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Sets server port and logs message on success
-app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+app.listen(process.env.PORT || 1337, () =>
+  console.log('Webhook is listening...')
+);
 
 /****************************************
  *                                      *
@@ -20,14 +25,14 @@ app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
 // Accepts GET requests at the /webhook endpoint
 app.get('/webhook', (req, res) => {
-  console.log('trying to get..');
+  console.log('Trying to get...');
   /** UPDATE YOUR VERIFY TOKEN **/
   const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
   // Parse params from the webhook verification request
-  let mode = req.query['hub.mode'];
-  let token = req.query['hub.verify_token'];
-  let challenge = req.query['hub.challenge'];
+  const mode = req.query['hub.mode'];
+  const token = req.query['hub.verify_token'];
+  const challenge = req.query['hub.challenge'];
 
   // Check if a token and mode were sent
   if (mode && token) {
@@ -46,7 +51,7 @@ app.get('/webhook', (req, res) => {
 // Accepts POST requests at /webhook endpoint
 app.post('/webhook', (req, res) => {
   // Parse the request body from the POST
-  let body = req.body;
+  const { body } = req;
 
   // Check the webhook event is from a Page subscription
   if (body.object === 'page') {
@@ -54,11 +59,12 @@ app.post('/webhook', (req, res) => {
     body.entry.forEach(function(entry) {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
-      let webhook_event = entry.messaging[0];
-      console.log(webhook_event);
+      const webhook_event = entry.messaging[0];
+
+      console.log('\n\n--> webhook_event : ', webhook_event);
 
       // Get the sender PSID
-      let sender_psid = webhook_event.sender.id;
+      const sender_psid = webhook_event.sender.id;
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
@@ -87,35 +93,10 @@ app.post('/webhook', (req, res) => {
 app.post('/slackhook', async (req, res) => {
   // Parse the body from the POST request
   const { body } = req;
-  const { command, text } = body;
 
-  console.log('\n\n--> slackhook b', body);
-  console.log('\n\n--> slackhook b txt', text);
+  console.log('\n\n--> slackhook body : ', body);
 
-  let message;
-
-  switch (command) {
-    case '/faq':
-      console.log("Starting a search session from Zenika's Faq API...");
-      // pass the parsed body to the appropriate handler function
-      message = await handleCommand(body);
-      break;
-
-    case '/stack':
-      console.log('Starting a search session from StackOverflow API...');
-      message = await handleCommand(body);
-      break;
-
-    case '/goo':
-      console.log('Starting a search session from Google API...');
-      message = await handleCommand(body);
-      break;
-
-    default:
-      //TODO G search later
-      console.log("Starting a search session from Google's API...");
-      message = await handleCommand(body);
-  }
+  const message = await handleCommand(body);
 
   // Return a '200 OK' response to all events
   res.status(200).send({

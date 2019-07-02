@@ -1,4 +1,11 @@
-function SearchResult(title, subtitle, action_url, image_url, providerUrl) {
+function SearchResult(
+  context,
+  title,
+  subtitle,
+  action_url,
+  image_url,
+  providerUrl
+) {
   return {
     title: `${title}`,
     title_link: action_url,

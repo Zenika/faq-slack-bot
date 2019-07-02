@@ -1,12 +1,13 @@
-const callSendAPI = require("../../../../../result/provider/messenger/api/callSendAPI"),
-  { makeCaroussel } = require("./transform"),
-  UnsatisfactorySearch = require("../../../../../result/provider/messenger/model/UnsatisfactorySearch");
+const callSendAPI = require('./api'),
+  Caroussel = require('./model/Caroussel'),
+  SearchResult = require('./model/SearchResult'),
+  UnsatisfactorySearch = require('./model/UnsatisfactorySearch');
 
-const faq = require("../..");
+const searchFaq = require('../../../search/provider/faq');
 
 // Handles messages events
 async function handleMessage(sender_psid, received_message) {
-  console.log("handleMessage", received_message);
+  console.log('handleMessage : ', received_message);
   let message, waiting;
 
   // Checks if the message contains text
@@ -14,25 +15,17 @@ async function handleMessage(sender_psid, received_message) {
   // will be added to the body of our request to the Send API
 
   if (received_message.text) {
-    const messageText = received_message.text;
+    const { text } = received_message;
 
     try {
       //Simulate user typing while the search occurs
-      waiting = callSendAPI(sender_psid, { sender_action: "typing_on" });
+      waiting = callSendAPI(sender_psid, { sender_action: 'typing_on' });
 
       // Start a search session for the query string by requesting the FAQ's API
-      const { search } = await faq(messageText);
-
-      if (search.nodes && search.nodes.length > 0) {
-        message = makeCaroussel(messageText, search.nodes);
-      } else {
-        message = UnsatisfactorySearch(
-          messageText,
-          `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`
-        );
-      }
+      console.log('Starting a search session from Zenika Faq API...');
+      message = makeCaroussel(searchFaq(text, SearchResult, 9));
     } catch (err) {
-      console.log("handleMessage err : ", err);
+      console.log('handleMessage err : ', err);
       message = {
         text: `Désolé! Une erreur inattendue s'est produite 😱`
       };
@@ -49,22 +42,39 @@ async function handleMessage(sender_psid, received_message) {
       await waiting;
     } catch (err) {
       //Ignore the faillure and log it
-      console.error("Unable to send 3 dots :", err);
+      console.error('Unable to send 3 dots :', err);
     }
   }
 
   // Send the response message to the Messenger platform
   try {
     const res = await callSendAPI(sender_psid, { message });
-    console.log("message sent :", JSON.stringify(res));
+    console.log('message sent :', JSON.stringify(res));
   } catch (err) {
-    console.error("Unable to send message :", err);
+    console.error('Unable to send message :', err);
   }
+}
+
+//REMINND : Do not factorize this code (avoid strong dependencies btw msg & slack)
+function makeCaroussel(text, [caroussel, providerUrl]) {
+  let message;
+  if (caroussel.length > 0) {
+    message = Caroussel(text, caroussel);
+
+    console.log('handleCommand message:', message);
+  } else {
+    message = UnsatisfactorySearch(
+      text,
+      `Désolé! Je n'ai rien trouvé  😭`,
+      providerUrl
+    );
+  }
+  return message;
 }
 
 // Handles messaging_postbacks events
 async function handlePostback(sender_psid, received_postback) {
-  console.log("handlePostback", received_postback);
+  console.log('handlePostback', received_postback);
   let message;
 
   // Get the payload for the postback
@@ -72,14 +82,14 @@ async function handlePostback(sender_psid, received_postback) {
 
   // Set the response based on the postback payload's action
   switch (action) {
-    case "damn":
+    case 'damn':
       message = UnsatisfactorySearch(
         context,
         `Arghh!\nJe te propose de faire ça 😓:`
       );
       break;
-    case "start_search":
-      message = { text: "Que recherches tu ? 🤔" };
+    case 'start_search':
+      message = { text: 'Que recherches tu ? 🤔' };
       break;
     default:
       message = { text: "Désolé! Je n'ai pas compris 😅" };
@@ -88,9 +98,9 @@ async function handlePostback(sender_psid, received_postback) {
   // Send the message to acknowledge the postback
   try {
     const res = await callSendAPI(sender_psid, { message });
-    console.log("postback sent :", JSON.stringify(res));
+    console.log('postback sent :', JSON.stringify(res));
   } catch (err) {
-    console.error("Unable to send postback :", err);
+    console.error('Unable to send postback :', err);
   }
 }
 
