@@ -1,6 +1,6 @@
 const faqUrl = process.env.FAQ_URL;
-const Caroussel = require("../model/Caroussel"),
-  SearchResult = require("../model/SearchResult");
+const Caroussel = require('../../../../../result/provider/slack/model/Caroussel'),
+  SearchResult = require('../../../../../result/provider/slack/model/SearchResult');
 
 // Transform each result node into a SearchResult object.
 // Return a Caroussel object filled with the created SearchResult objects.
@@ -8,11 +8,10 @@ function makeCaroussel(context, nodes = [], max = 9) {
   const caroussel = nodes
     .map(({ id, question, answer }) =>
       SearchResult(
-        question ? question.title || "" : "Pas de question",
-        answer ? answer.content || "" : "Question sans réponse",
-        `${faqUrl}/${
-          question ? "q/" + (question.slug + "-" + id) : ""
-        }`
+        question ? question.title || '' : 'Pas de question',
+        answer ? answer.content || '' : 'Question sans réponse',
+        `${faqUrl}/${question ? 'q/' + (question.slug + '-' + id) : ''}`,
+        faqUrl
       )
     )
     .slice(0, max);
@@ -21,7 +20,8 @@ function makeCaroussel(context, nodes = [], max = 9) {
     SearchResult(
       `Voir '${context}' dans FAQ`,
       `<${faqUrl}/?q=${context}|Voir la liste complète des résultats dans FAQ.>`,
-      `${faqUrl}/?q=${context}`
+      `${faqUrl}/?q=${context}`,
+      faqUrl
     )
   );
 

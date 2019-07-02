@@ -1,8 +1,8 @@
-const callSendAPI = require("./callSendAPI"),
+const callSendAPI = require("../../../../../result/provider/messenger/api/callSendAPI"),
   { makeCaroussel } = require("./transform"),
-  UnsatisfactorySearch = require("../model/UnsatisfactorySearch");
+  UnsatisfactorySearch = require("../../../../../result/provider/messenger/model/UnsatisfactorySearch");
 
-const faq = require("../../faq");
+const faq = require("../..");
 
 // Handles messages events
 async function handleMessage(sender_psid, received_message) {

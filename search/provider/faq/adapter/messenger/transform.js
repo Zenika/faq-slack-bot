@@ -1,7 +1,7 @@
 const faqUrl = process.env.FAQ_URL;
 
-const Caroussel = require("../model/Caroussel"),
-  SearchResult = require("../model/SearchResult");
+const Caroussel = require("../../../../../result/provider/messenger/model/Caroussel"),
+  SearchResult = require("../../../../../result/provider/messenger/model/SearchResult");
 
 // Transform each result node into a SearchResult object.
 // Return a Caroussel object filled with the created SearchResult objects.

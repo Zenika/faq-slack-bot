@@ -1,11 +1,13 @@
-const { makeCaroussel } = require("./transform");
-const UnsatisfactorySearch = require("../model/UnsatisfactorySearch");
-const faq = require("../../faq");
+const { makeCaroussel } = require('./transform');
+const UnsatisfactorySearch = require('../../../../../result/provider/slack/model/UnsatisfactorySearch');
+const faq = require('../..');
+
+const faqUrl = process.env.FAQ_URL;
 
 // Handles command events
 function handleCommand({ text: commandText, ...meta }) {
   return new Promise(async (resolve, reject) => {
-    console.log("handleCommand", "text:", commandText, "meta:", meta);
+    console.log('handleCommand', 'text:', commandText, 'meta:', meta);
     let message;
 
     // Check if the command is sent with a search text.
@@ -16,15 +18,16 @@ function handleCommand({ text: commandText, ...meta }) {
 
         if (search.nodes && search.nodes.length > 0) {
           message = makeCaroussel(commandText, search.nodes, 5);
-          console.log("caroussel:", message);
+          console.log('caroussel:', message);
         } else {
           message = UnsatisfactorySearch(
             commandText,
-            `Désolé! Je n'ai rien trouvé  😭`
+            `Désolé! Je n'ai rien trouvé  😭`,
+            faqUrl
           );
         }
       } catch (err) {
-        console.log("handleCommand err : ", err);
+        console.log('handleCommand err : ', err);
         message = {
           text: `Désolé! Une erreur inattendue s'est produite 😱`
         };
