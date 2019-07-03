@@ -1,8 +1,7 @@
 const callSendAPI = require('./api'),
-  { makeCaroussel } = require('./adapter/faq'),
   UnsatisfactorySearch = require('./model/UnsatisfactorySearch');
 
-const faq = require('../../api/faq');
+const searchFaq = require('./adapter/faq');
 
 // Handles messages events
 async function handleMessage(sender_psid, received_message) {
