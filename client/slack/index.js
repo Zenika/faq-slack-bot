@@ -1,7 +1,7 @@
 const  
   UnsatisfactorySearch = require('./model/UnsatisfactorySearch'),;
 
-const makeCaroussel = require('../messenger/adapter/faq');
+const makeCaroussel = require('./adapter/faq');
 
 // Handles command events
 function handleCommand(received_command) {
