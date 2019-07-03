@@ -5,46 +5,47 @@ const searchStack = require('./adapter/stack');
 function handleCommand(received_command) {
   console.log('handleCommand received_command : ', received_command);
 
-  return new Promise((resolve, reject) => {
-    let message;
+  /* return new Promise((resolve, reject) => {  //TODO*/
+  let message;
 
-    // Check if the command is sent with a search text.
-    if (received_command.command && received_command.text) {
-      const { command, text } = received_command;
+  const { command, text } = received_command;
 
-      try {
-        switch (command) {
-          case '/faq':
-            console.log('Starting a search session from Zenika Faq..');
-            message = searchFaq(text, 5);
-            break;
+  // Check if the command is sent with a search text.
+  if (text) {
+    try {
+      switch (command) {
+        case '/faq':
+          console.log('Starting a search session from Zenika Faq..');
+          message = searchFaq(text, 5);
+          break;
 
-          case '/stack':
-            console.log('Starting a search session from StackOverflow..');
-            message = searchStack(text, 5);
-            break;
+        case '/stack':
+          console.log('Starting a search session from StackOverflow..');
+          message = searchStack(text, 5);
+          break;
 
-          default:
-            console.log('Unknown command : ', command);
-            message = {
-              text: `Désolé! Une erreur inattendue s'est produite 😱`
-            };
-        }
-      } catch (err) {
-        console.log('handleCommand err : ', err);
-        message = {
-          text: `Désolé! Une erreur inattendue s'est produite 😱`
-        };
+        default:
+          console.log('Unknown command : ', command);
+          message = {
+            text: `Désolé! La commande ${command} est n'est pas prise en charge pour le moment!`
+          };
       }
-    } else {
-      // Use a JSON payload to communicate the error back to the user as an ephemeral message.
+    } catch (err) {
+      console.log('handleCommand err : ', err);
       message = {
-        text:
-          "La commande /faq doit toujours être suivie d'un texte de recherche. \n ex: /faq comment faire une note de frais"
+        text: `Désolé! Une erreur inattendue s'est produite 😱`
       };
     }
+  } else {
+    // Use a JSON payload to communicate the error back to the user as an ephemeral message.
+    message = {
+      text: `La commande ${command} doit toujours être suivie d'un texte de recherche.\nEx: ${command} comment faire une note de frais ?`
+    };
+  }
 
-    resolve(message);
-  });
+  return message;
+
+  /* resolve(message);
+  }); */
 }
 module.exports = { handleCommand };

@@ -3,14 +3,11 @@
 // Imports dependencies and set up http server
 const express = require('express'),
   bodyParser = require('body-parser'),
-  {
-    handleMessage,
-    handlePostback
-  } = require('./client/messenger'),
-  { handleCommand } = require('./client/slack'),
   app = express() // creates express http server
     .use(bodyParser.json()) // support json encoded bodies
-    .use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+    .use(bodyParser.urlencoded({ extended: true })),
+  { handleMessage, handlePostback } = require('./client/messenger'),
+  { handleCommand } = require('./client/slack'); // support encoded bodies
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () =>
@@ -90,13 +87,13 @@ app.post('/webhook', (req, res) => {
  ****************************************/
 
 // Accepts POST requests at /slackhook endpoint
-app.post('/slackhook', async (req, res) => {
+app.post('/slackhook', /* async //TODO*/ (req, res) => {
   // Parse the body from the POST request
   const { body } = req;
 
   console.log('\n\n--> slackhook body : ', body);
 
-  const message = await handleCommand(body);
+  const message = /* await //TODO*/ handleCommand(body);
 
   // Return a '200 OK' response to all events
   res.status(200).send({
