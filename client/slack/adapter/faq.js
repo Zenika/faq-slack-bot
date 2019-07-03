@@ -1,6 +1,6 @@
 const faqUrl = process.env.FAQ_URL;
 
-const faqIconUrl = `${faqUrl}/img/favicon/favicon-64.png`;
+const faqIconUrl = `${faqUrl}/img/favicon/favicon-64.png`; //TODO env var
 
 const Caroussel = require('../model/Caroussel'),
   SearchResult = require('../model/SearchResult'),

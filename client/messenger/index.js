@@ -13,24 +13,16 @@ async function handleMessage(sender_psid, received_message) {
   // And create the payload for a text message, which
   // will be added to the body of our request to the Send API
 
-  if (received_message.text) {
-    const messageText = received_message.text;
+  const { text } = received_command;
 
+  if (text) {
     try {
       //Simulate user typing while the search occurs
       waiting = callSendAPI(sender_psid, { sender_action: 'typing_on' });
 
-      // Start a search session for the query string by requesting the FAQ's API
-      const { search } = await faq(messageText);
-
-      if (search.nodes && search.nodes.length > 0) {
-        message = makeCaroussel(messageText, search.nodes);
-      } else {
-        message = UnsatisfactorySearch(
-          messageText,
-          `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`
-        );
-      }
+      // Start a search session for the query string by querying the FAQ's API
+      console.log('Starting a search session from Zenika Faq..');
+      message = searchFaq(text, 5);
     } catch (err) {
       console.log('handleMessage err : ', err);
       message = {

@@ -1,33 +1,47 @@
 const faqUrl = process.env.FAQ_URL;
 
-const Caroussel = require("../model/Caroussel"),
-  SearchResult = require("../model/SearchResult");
+const Caroussel = require('../model/Caroussel'),
+  SearchResult = require('../model/SearchResult'),
+  UnsatisfactorySearch = require('../model/UnsatisfactorySearch');
+
+const faq = require('../../../api/faq');
 
 // Transform each result node into a SearchResult object.
 // Return a Caroussel object filled with the created SearchResult objects.
-function makeCaroussel(context, nodes = [], max = 9) {
-  const caroussel = nodes
-    .map(({ id, question, answer }) =>
+// Return an UnsatisfactorySearch Object if there is no result
+async function makeCaroussel(context, nodes = [], max = 9) {
+  const { search } = await faq(context);
+
+  if (search && search.nodes && search.nodes.length > 0) {
+    const { nodes } = search;
+
+    const results = nodes
+      .map(({ id, question, answer }) =>
+        SearchResult(
+          context,
+          question ? question.title || '' : 'Pas de question',
+          answer ? answer.content || '' : 'Question sans réponse',
+          `${faqUrl}/${question ? 'q/' + (question.slug + '-' + id) : ''}`
+        )
+      )
+      .slice(0, max);
+
+    results.push(
       SearchResult(
         context,
-        question ? question.title || "" : "Pas de question",
-        answer ? answer.content || "" : "Question sans réponse",
-        `${faqUrl}/${
-          question ? "q/" + (question.slug + "-" + id) : ""
-        }`
+        context,
+        'Voir la liste complète des résultats dans FAQ.',
+        `${faqUrl}/?q=${context}`
       )
-    )
-    .slice(0, max);
-  caroussel.push(
-    SearchResult(
-      context,
-      context,
-      "Voir la liste complète des résultats dans FAQ.",
-      `${faqUrl}/?q=${context}`
-    )
-  );
+    );
 
-  return Caroussel(caroussel);
+    return Caroussel(results);
+  } else {
+    return UnsatisfactorySearch(
+      context,
+      `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`
+    );
+  }
 }
 
 module.exports = { makeCaroussel };

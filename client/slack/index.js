@@ -15,6 +15,7 @@ function handleCommand(received_command) {
     try {
       switch (command) {
         case '/faq':
+          // Start a search session for the query string by querying the FAQ's API
           console.log('Starting a search session from Zenika Faq..');
           message = searchFaq(text, 5);
           break;
