@@ -6,8 +6,8 @@ const express = require('express'),
   {
     handleMessage,
     handlePostback
-  } = require('./search/provider/faq/messenger'),
-  { handleCommand } = require('./search/provider/faq/slack'),
+  } = require('./client/messenger'),
+  { handleCommand } = require('./client/slack'),
   app = express() // creates express http server
     .use(bodyParser.json()) // support json encoded bodies
     .use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
