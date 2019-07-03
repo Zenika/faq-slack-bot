@@ -1,9 +1,7 @@
-const Caroussel = require('./model/Caroussel'),
-  SearchResult = require('./model/SearchResult'),
+const  
   UnsatisfactorySearch = require('./model/UnsatisfactorySearch'),;
 
-const searchFaq = require('../../../search/provider/faq');
-const searchStack = require('../../../search/provider/stack');
+const makeCaroussel = require('../messenger/adapter/faq');
 
 // Handles command events
 function handleCommand(received_command) {
@@ -20,12 +18,23 @@ function handleCommand(received_command) {
         switch (command) {
           case '/faq': // Start a search session for the query string by requesting the FAQ API
             console.log("Starting a search session from Zenika Faq API...");
-            message = makeCaroussel(searchFaq(text, SearchResult, 5));
+            // Start a search session for the query string by requesting the FAQ's API
+        const { search } = await faq(commandText);
+
+        if (search.nodes && search.nodes.length > 0) {
+          message = makeCaroussel(commandText, search.nodes, 5);
+          console.log("caroussel:", message);
+        } else {
+          message = UnsatisfactorySearch(
+            commandText,
+            `Désolé! Je n'ai rien trouvé  😭`
+          );
+        }
             break;
 
           case '/stack': // Start a search session for the query string by requesting the StackOverflow API
             console.log('Starting a search session from StackOverflow API...');
-            message = makeCaroussel(searchStack(text, SearchResult, 5));
+           
             break;
 
           default:
@@ -51,22 +60,4 @@ function handleCommand(received_command) {
     resolve(message);
   });
 }
-
-//REMINND : Do not factorize this code (avoid strong dependencies btw msg & slack)
-function makeCaroussel(text, [caroussel, providerUrl]) {
-  let message;
-  if (caroussel.length > 0) {
-    message = Caroussel(text, caroussel);
-
-    console.log('handleCommand message:', message);
-  } else {
-    message = UnsatisfactorySearch(
-      text,
-      `Désolé! Je n'ai rien trouvé  😭`,
-      providerUrl
-    );
-  }
-  return message;
-}
-
 module.exports = { handleCommand };

@@ -1,1 +1,0 @@
-const stack = require('./stack');
