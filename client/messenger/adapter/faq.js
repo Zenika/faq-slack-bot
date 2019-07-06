@@ -9,51 +9,54 @@ const faq = require('../../../api/faq');
 // Transform each result node into a SearchResult object.
 // Return a Caroussel object filled with the created SearchResult objects.
 // Return an UnsatisfactorySearch Object if there is no result
-async function searchFaq(context, nodes = [], max = 9) {
-  console.log('in searchFaq : ');
-  const { search } = await faq(context);
+function searchFaq(context, nodes = [], max = 9) {
+  return new Promise(async (resolve, reject) => {
+    let message;
 
-  console.log('search : ', search);
+    console.log('in searchFaq : ');
+    const { search } = await faq(context);
 
-  if (search && search.nodes && search.nodes.length > 0) {
-    const { nodes } = search;
+    console.log('search : ', search);
 
-    const results = nodes
-      .map(({ id, question, answer }) =>
+    if (search && search.nodes && search.nodes.length > 0) {
+      const { nodes } = search;
+
+      const results = nodes
+        .map(({ id, question, answer }) =>
+          SearchResult(
+            context,
+            question ? question.title || '' : 'Pas de question',
+            answer ? answer.content || '' : 'Question sans réponse',
+            `${faqUrl}/${question ? 'q/' + (question.slug + '-' + id) : ''}`
+          )
+        )
+        .slice(0, max);
+
+      results.push(
         SearchResult(
           context,
-          question ? question.title || '' : 'Pas de question',
-          answer ? answer.content || '' : 'Question sans réponse',
-          `${faqUrl}/${question ? 'q/' + (question.slug + '-' + id) : ''}`
+          context,
+          'Voir la liste complète des résultats dans FAQ.',
+          `${faqUrl}/?q=${context}`
         )
-      )
-      .slice(0, max);
+      );
 
-    results.push(
-      SearchResult(
+      console.log('====================================');
+      console.log('results : ', results);
+      console.log('====================================');
+
+      console.log('out searchFaq 1: ');
+
+      message = Caroussel(results);
+    } else {
+      console.log('out searchFaq 2: ');
+      message = UnsatisfactorySearch(
         context,
-        context,
-        'Voir la liste complète des résultats dans FAQ.',
-        `${faqUrl}/?q=${context}`
-      )
-    );
-
-    console.log('====================================');
-    console.log('results : ', results);
-    console.log('====================================');
-
-    console.log('out searchFaq 1: ');
-
-    return Caroussel(results);
-  } else {
-
-    console.log('out searchFaq 2: ');
-    return UnsatisfactorySearch(
-      context,
-      `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`
-    );
-  }
-  
+        `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`
+      );
+    }
+    resolve(message);
+  });
 }
 
 module.exports = searchFaq;
