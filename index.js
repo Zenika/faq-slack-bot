@@ -89,15 +89,15 @@ app.post('/webhook', (req, res) => {
 // Accepts POST requests at /slackhook endpoint
 app.post(
   '/slackhook',
-  /* async //TODO*/ (req, res) => {
+  /**/  async /**/ (req, res) => {
     // Parse the body from the POST request
     const { body } = req;
 
     console.log('\n\n--> slackhook body : ', body);
 
-    const message = await  handleCommand(body);
+    const message = /**/ await /**/ handleCommand(body);
 
-    console.log('\n\n\n\nreturned message :', message,'\n\n\n\n');
+    console.log('start returned message :', message,'end returned message');
 
     // Return a '200 OK' response to all events
     res.status(200).send({
