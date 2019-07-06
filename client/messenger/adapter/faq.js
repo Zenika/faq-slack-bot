@@ -49,7 +49,8 @@ function searchFaq(context, nodes = [], max = 9) {
     } else {
       message = UnsatisfactorySearch(
         context,
-        `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`
+        `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`,
+        faqUrl
       );
     }
 

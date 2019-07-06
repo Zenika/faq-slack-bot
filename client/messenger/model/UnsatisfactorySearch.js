@@ -18,13 +18,13 @@ function UnsatisfactorySearch(context, text, providerUrl) {
             type: 'web_url',
             title: 'Partager sur Workplace',
             url: normalizeUrl(
-              `https://work.facebook.com/sharer.php?display=popup&u=${providerUrl}/?q=${context}&quote=${context}`
+              `https://work.facebook.com/sharer.php?display=popup&u=${providerUrl}?q=${context}&quote=${context}`
             )
           },
           {
             type: 'web_url',
             title: 'Rechercher dans FAQ',
-            url: normalizeUrl(`${providerUrl}/?q=${context}`)
+            url: normalizeUrl(`${providerUrl}?q=${context}`)
           }
         ]
       }
