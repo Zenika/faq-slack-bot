@@ -4,6 +4,7 @@ const request = require("request");
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, content) {
+  console.log("callSendAPI", sender_psid, content)
   // Construct the message body
   let request_body = {
     recipient: {
