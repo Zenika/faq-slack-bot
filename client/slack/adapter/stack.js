@@ -4,6 +4,7 @@ const Caroussel = require('../model/Caroussel'),
 
 const stackName = 'StackOverflow';
 const stackUrl = 'https://stackoverflow.com';
+const searchStackUrl = `${stackUrl}/search`;
 
 const stack = require('../../../api/stack');
 
@@ -33,8 +34,8 @@ async function searchStack(context, max = 9) {
     results.push(
       SearchResult(
         `Voir '${context}' sur ${stackName}`,
-        `<${stackUrl}/search?q=${context}|Voir la liste complète des résultats sur ${stackName}.>`,
-        `${stackUrl}/search?q=${context}`,
+        `<${searchStackUrl}?q=${context}|Voir la liste complète des résultats sur ${stackName}.>`,
+        `${searchStackUrl}?q=${context}`,
         stackUrl
       )
     );
@@ -44,7 +45,7 @@ async function searchStack(context, max = 9) {
     return UnsatisfactorySearch(
       context,
       `Désolé! Je n'ai rien trouvé  😭`,
-      stackUrl,
+      searchStackUrl,
       stackName
     );
   }
