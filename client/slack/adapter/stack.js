@@ -5,6 +5,8 @@ const Caroussel = require('../model/Caroussel'),
 const stackName = 'StackOverflow';
 const stackUrl = 'https://stackoverflow.com';
 const searchStackUrl = `${stackUrl}/search`;
+const stackIconUrl =
+  'https://cdn.sstatic.net/Sites/stackoverflow/company/img/logos/so/so-logo.svg?v=a010291124bf';
 
 const stack = require('../../../api/stack');
 
@@ -26,7 +28,8 @@ async function searchStack(context, max = 9) {
             ? `<${link}|Voir les réponses à cette question sur ${stackName} en suivant le lien.>`
             : 'Question sans réponse',
           link,
-          stackUrl
+          stackUrl,
+          stackIconUrl
         )
       )
       .slice(0, max);
