@@ -9,7 +9,7 @@ const faq = require('../../../api/faq');
 // Transform each result node into a SearchResult object.
 // Return a Caroussel object filled with the created SearchResult objects.
 // Return an UnsatisfactorySearch Object if there is no result
-async function makeCaroussel(context, nodes = [], max = 9) {
+async function searchFaq(context, nodes = [], max = 9) {
   const { search } = await faq(context);
 
   if (search && search.nodes && search.nodes.length > 0) {
@@ -44,4 +44,4 @@ async function makeCaroussel(context, nodes = [], max = 9) {
   }
 }
 
-module.exports = { makeCaroussel };
+module.exports = searchFaq;
