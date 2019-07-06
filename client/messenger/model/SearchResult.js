@@ -5,8 +5,9 @@ function SearchResult(
   title,
   subtitle,
   action_url,
-  image_url,
-  providerUrl
+  providerUrl,
+  providerName,
+  image_url
 ) {
   return {
     title: title,
@@ -27,7 +28,7 @@ function SearchResult(
       {
         type: 'postback',
         title: "Ce n'est pas ça!",
-        payload: PostbackPayload(context, 'damn')
+        payload: PostbackPayload(context, 'damn', providerUrl, providerName)
       }
     ]
   };

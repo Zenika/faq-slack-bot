@@ -1,7 +1,7 @@
 const normalizeUrl = require('normalize-url');
 const PostbackPayload = require('./PostbackPayload');
 
-function UnsatisfactorySearch(context, text, providerUrl) {
+function UnsatisfactorySearch(context, text, providerUrl, providerName) {
   return {
     attachment: {
       type: 'template',
@@ -12,7 +12,7 @@ function UnsatisfactorySearch(context, text, providerUrl) {
           {
             type: 'postback',
             title: 'Reformuler la recherche',
-            payload: PostbackPayload(context, 'start_search')
+            payload: PostbackPayload(context, 'start_search',providerUrl, providerName)
           },
           {
             type: 'web_url',
@@ -23,7 +23,7 @@ function UnsatisfactorySearch(context, text, providerUrl) {
           },
           {
             type: 'web_url',
-            title: 'Rechercher dans FAQ',
+            title: `Rechercher sur ${providerName}`,
             url: normalizeUrl(`${providerUrl}?q=${context}`)
           }
         ]

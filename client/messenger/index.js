@@ -61,14 +61,18 @@ async function handlePostback(sender_psid, received_postback) {
   let message;
 
   // Get the payload for the postback
-  let { context, action } = JSON.parse(received_postback.payload);
+  let { context, action, providerUrl, providerName } = JSON.parse(
+    received_postback.payload
+  );
 
   // Set the response based on the postback payload's action
   switch (action) {
     case 'damn':
       message = UnsatisfactorySearch(
         context,
-        `Arghh!\nJe te propose de faire ça 😓:`
+        'Arghh!\nJe te propose de faire ça 😓:',
+        providerUrl,
+        providerName
       );
       break;
     case 'start_search':

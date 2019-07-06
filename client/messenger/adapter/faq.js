@@ -1,4 +1,5 @@
 const faqUrl = process.env.FAQ_URL;
+const faqName = 'FAQ';
 
 const Caroussel = require('../model/Caroussel'),
   SearchResult = require('../model/SearchResult'),
@@ -27,7 +28,9 @@ function searchFaq(context, nodes = [], max = 9) {
             context,
             question ? question.title || '' : 'Pas de question',
             answer ? answer.content || '' : 'Question sans réponse',
-            `${faqUrl}/${question ? 'q/' + (question.slug + '-' + id) : ''}`
+            `${faqUrl}/${question ? 'q/' + (question.slug + '-' + id) : ''}`,
+            faqUrl,
+            faqName
           )
         )
         .slice(0, max);
@@ -37,7 +40,9 @@ function searchFaq(context, nodes = [], max = 9) {
           context,
           context,
           'Voir la liste complète des résultats dans FAQ.',
-          `${faqUrl}/?q=${context}`
+          `${faqUrl}/?q=${context}`,
+          faqUrl,
+          faqName
         )
       );
 
@@ -50,7 +55,8 @@ function searchFaq(context, nodes = [], max = 9) {
       message = UnsatisfactorySearch(
         context,
         `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`,
-        faqUrl
+        faqUrl,
+        faqName
       );
     }
 

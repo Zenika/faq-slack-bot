@@ -1,7 +1,9 @@
-function PostbackPayload(context, action) {
+function PostbackPayload(context, action, providerUrl, providerName) {
   return JSON.stringify({
     context: context,
-    action: action
+    action: action,
+    providerUrl,
+    providerName
   });
 }
 
