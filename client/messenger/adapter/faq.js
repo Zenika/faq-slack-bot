@@ -35,6 +35,10 @@ async function searchFaq(context, nodes = [], max = 9) {
       )
     );
 
+    console.log('====================================');
+    console.log('results : ', results);
+    console.log('====================================');
+
     return Caroussel(results);
   } else {
     return UnsatisfactorySearch(
