@@ -45,16 +45,15 @@ function searchFaq(context, nodes = [], max = 9) {
       console.log('results : ', results);
       console.log('====================================');
 
-      console.log('out searchFaq 1: ');
-
       message = Caroussel(results);
     } else {
-      console.log('out searchFaq 2: ');
       message = UnsatisfactorySearch(
         context,
         `Désolé! Je n'ai rien trouvé 😭\nTu peux toujours faire ça :`
       );
     }
+
+    console.log('out searchFaq 2: ', message);
     resolve(message);
   });
 }
