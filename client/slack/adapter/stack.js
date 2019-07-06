@@ -2,8 +2,8 @@ const Caroussel = require('../model/Caroussel'),
   SearchResult = require('../model/SearchResult'),
   UnsatisfactorySearch = require('../model/UnsatisfactorySearch');
 
-const stackUrl =
-  'https://api.stackexchange.com/2.2/search/advanced?site=stackoverflow';
+const stackName = 'StackOverflow';
+const stackUrl = 'https://stackoverflow.com';
 
 const stack = require('../../../api/stack');
 
@@ -20,9 +20,9 @@ async function searchStack(context, max = 9) {
     const results = items
       .map(({ link, title, is_answered }) =>
         SearchResult(
-          title || 'Pas de question',
+          title,
           is_answered
-            ? 'Voir les réponse en suivant le lien'
+            ? `<${link}|Voir les réponses à cette question sur ${stackName} en suivant le lien.>`
             : 'Question sans réponse',
           link,
           stackUrl
@@ -32,9 +32,9 @@ async function searchStack(context, max = 9) {
 
     results.push(
       SearchResult(
-        `Voir '${context}' sur StackOverflow`,
-        `<${stackUrl}&q=${context}|Voir la liste complète des résultats sur StackOverflow.>`,
-        `${stackUrl}&q=${context}`,
+        `Voir '${context}' sur ${stackName}`,
+        `<${stackUrl}/search?q=${context}|Voir la liste complète des résultats sur ${stackName}.>`,
+        `${stackUrl}/search?q=${context}`,
         stackUrl
       )
     );
