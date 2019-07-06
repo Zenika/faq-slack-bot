@@ -21,7 +21,7 @@ async function handleMessage(sender_psid, received_message) {
 
       // Start a search session for the query string by querying the FAQ's API
       console.log('Starting a search session from Zenika Faq..');
-      message = await searchFaq(text, 5);
+      message = searchFaq(text, 5);
 
       console.log('returned message : ', message);
     } catch (err) {
