@@ -87,17 +87,22 @@ app.post('/webhook', (req, res) => {
  ****************************************/
 
 // Accepts POST requests at /slackhook endpoint
-app.post('/slackhook', /* async //TODO*/ (req, res) => {
-  // Parse the body from the POST request
-  const { body } = req;
+app.post(
+  '/slackhook',
+  /* async //TODO*/ (req, res) => {
+    // Parse the body from the POST request
+    const { body } = req;
 
-  console.log('\n\n--> slackhook body : ', body);
+    console.log('\n\n--> slackhook body : ', body);
 
-  const message = /* await //TODO*/ handleCommand(body);
+    const message = /* await //TODO*/ handleCommand(body);
 
-  // Return a '200 OK' response to all events
-  res.status(200).send({
-    response_type: 'in_channel', //controls the message's visibility
-    ...message
-  });
-});
+    console.log('\n\n\n\nreturned message :', message,'\n\n\n\n');
+
+    // Return a '200 OK' response to all events
+    res.status(200).send({
+      response_type: 'in_channel', //controls the message's visibility
+      ...message
+    });
+  }
+);
