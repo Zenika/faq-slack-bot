@@ -1,5 +1,5 @@
+const faqName = 'FAQ';
 const faqUrl = process.env.FAQ_URL;
-
 const faqIconUrl = `${faqUrl}/img/favicon/favicon-64.png`; //TODO env var
 
 const Caroussel = require('../model/Caroussel'),
@@ -42,7 +42,12 @@ async function searchFaq(context, max = 9) {
 
     return Caroussel(context, results);
   } else {
-    return UnsatisfactorySearch(context, `Désolé! Je n'ai rien trouvé  😭`);
+    return UnsatisfactorySearch(
+      context,
+      `Désolé! Je n'ai rien trouvé  😭`,
+      faqUrl,
+      faqName
+    );
   }
 }
 
