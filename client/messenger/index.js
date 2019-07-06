@@ -12,7 +12,7 @@ async function handleMessage(sender_psid, received_message) {
   // And create the payload for a text message, which
   // will be added to the body of our request to the Send API
 
-  const { text } = received_command;
+  const { text } = received_message;
 
   if (text) {
     try {
