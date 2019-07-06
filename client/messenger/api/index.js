@@ -1,12 +1,10 @@
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-const request = require("request");
+const request = require('request');
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, content) {
-  console.log("callSendAPI", sender_psid, content)
-if(content.message )
-console.log("callSendAPI", sender_psid, content.message.attachment.payload)
+  console.log('callSendAPI', sender_psid, content);
 
   // Construct the message body
   let request_body = {
@@ -20,8 +18,8 @@ console.log("callSendAPI", sender_psid, content.message.attachment.payload)
     // Send the HTTP request to the Messenger Platform
     request(
       {
-        method: "POST",
-        uri: "https://graph.facebook.com/v2.6/me/messages",
+        method: 'POST',
+        uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: PAGE_ACCESS_TOKEN },
         json: request_body
       },
@@ -29,7 +27,7 @@ console.log("callSendAPI", sender_psid, content.message.attachment.payload)
         if (err) reject(err);
 
         if (res.statusCode !== 200)
-          reject(new Error(res.statusCode + " " + res.statusMessage));
+          reject(new Error(res.statusCode + ' ' + res.statusMessage));
 
         resolve(request_body);
       }
