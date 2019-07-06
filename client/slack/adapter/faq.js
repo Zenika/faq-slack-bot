@@ -46,4 +46,4 @@ async function searchFaq(context, max = 9) {
   }
 }
 
-module.exports = { searchFaq };
+module.exports = searchFaq;
