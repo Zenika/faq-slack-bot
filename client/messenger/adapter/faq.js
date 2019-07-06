@@ -14,10 +14,7 @@ function searchFaq(context, nodes = [], max = 9) {
   return new Promise(async (resolve, reject) => {
     let message;
 
-    console.log('in searchFaq : ');
     const { search } = await faq(context);
-
-    console.log('search : ', search);
 
     if (search && search.nodes && search.nodes.length > 0) {
       const { nodes } = search;
@@ -46,10 +43,6 @@ function searchFaq(context, nodes = [], max = 9) {
         )
       );
 
-      console.log('====================================');
-      console.log('results : ', results);
-      console.log('====================================');
-
       message = Caroussel(results);
     } else {
       message = UnsatisfactorySearch(
@@ -60,7 +53,6 @@ function searchFaq(context, nodes = [], max = 9) {
       );
     }
 
-    console.log('out searchFaq 2: ', message);
     resolve(message);
   });
 }

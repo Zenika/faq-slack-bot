@@ -13,5 +13,3 @@ const stack = (text, max = 9, skip = 0) => {
 };
 
 module.exports = stack;
-
-//stack('react hooks').then(r => console.log('r', r.data));// debug
