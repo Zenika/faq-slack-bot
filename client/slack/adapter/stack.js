@@ -38,7 +38,7 @@ async function searchStack(context, max = 9) {
         stackUrl
       )
     );
-    console.log('\n\n\n\nresults : ',results,'\n\n\n\n');
+    console.log('start results : ', results, 'end results');
 
     return Caroussel(context, results);
   } else {

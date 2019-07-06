@@ -95,7 +95,7 @@ app.post(
 
     console.log('\n\n--> slackhook body : ', body);
 
-    const message = /* await //TODO*/ handleCommand(body);
+    const message = await  handleCommand(body);
 
     console.log('\n\n\n\nreturned message :', message,'\n\n\n\n');
 
