@@ -38,11 +38,15 @@ async function searchStack(context, max = 9) {
         stackUrl
       )
     );
-    console.log('start results : ', results, 'end results');
 
     return Caroussel(context, results);
   } else {
-    return UnsatisfactorySearch(context, `Désolé! Je n'ai rien trouvé  😭`);
+    return UnsatisfactorySearch(
+      context,
+      `Désolé! Je n'ai rien trouvé  😭`,
+      stackUrl,
+      stackName
+    );
   }
 }
 

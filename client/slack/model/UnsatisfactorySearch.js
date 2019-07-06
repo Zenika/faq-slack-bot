@@ -1,6 +1,6 @@
 const normalizeUrl = require('normalize-url');
 
-function UnsatisfactorySearch(context, text, providerUrl) {
+function UnsatisfactorySearch(context, text, providerUrl, providerName) {
   return {
     text: text,
     attachments: [
@@ -16,16 +16,16 @@ function UnsatisfactorySearch(context, text, providerUrl) {
         actions: [
           {
             type: 'button',
-            name: 'search_in_faq',
-            text: 'Rechercher dans FAQ',
-            url: normalizeUrl(`${providerUrl}/?q=${context}`)
+            name: `search_in_${providerName}`,
+            text: `Rechercher sur ${providerName}`,
+            url: normalizeUrl(`${providerUrl}?q=${context}`)
           },
           {
             type: 'button',
             name: 'search_in_workplace',
             text: 'Partager sur Workplace',
             url: normalizeUrl(
-              `https://work.facebook.com/sharer.php?display=popup&u=${providerUrl}/?q=${context}&quote=${context}`
+              `https://work.facebook.com/sharer.php?display=popup&u=${providerUrl}?q=${context}&quote=${context}`
             )
           }
         ]
