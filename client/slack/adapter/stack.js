@@ -46,6 +46,4 @@ async function searchStack(context, max = 9) {
   }
 }
 
-module.exports = { searchStack };
-
-searchStack('react hooks');
+module.exports = searchStack;
