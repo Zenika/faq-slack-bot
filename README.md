@@ -4,10 +4,10 @@ Zenbot permet l'intégration (interfaçage) d'APIs comme la [FAQ Zenika](https:/
 
 ## Liste des commandes Slack
 
-| Command   | Argument            | Explication                                           |
-| --------- | ------------------- | ----------------------------------------------------- |
-| _/faq _   | `text de recherche` | **Lance une recherche sur https://zenika.faq.team/**  |
-| _/stack _ | `text de recherche` | **Lance une recherche sur http://stackoverflow.com/** |
+| Command  | Argument            | Explication                                           |
+| -------- | ------------------- | ----------------------------------------------------- |
+| _/faq_   | `text de recherche` | **Lance une recherche sur https://zenika.faq.team/**  |
+| _/stack_ | `text de recherche` | **Lance une recherche sur http://stackoverflow.com/** |
 
 ## Tuto
 
