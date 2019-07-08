@@ -1,6 +1,15 @@
-# Zenbot - Un chatbot qui répond aux questions en consultant la FAQ.
+# Zenbot - Un chatbot qui répond aux questions en consultant des APIs externes.
 
-Zenbot permet l'intégration (interfaçage) de l'API de la [FAQ Zenika](https://zenika.faq.team/gql) au sein de messageries instantanées telles que Messenger ou Slack.
+Zenbot permet l'intégration (interfaçage) d'APIs comme la [FAQ Zenika](https://zenika.faq.team/gql) ou encore [Stack Overflow](https://stackoverflow.com/) au sein de messageries instantanées telles que Messenger ou Slack.
+
+## Liste des commandes Slack
+
+| Command   | Argument            | Explication                                           |
+| --------- | ------------------- | ----------------------------------------------------- |
+| _/faq _   | `text de recherche` | **Lance une recherche sur https://zenika.faq.team/**  |
+| _/stack _ | `text de recherche` | **Lance une recherche sur http://stackoverflow.com/** |
+
+## Tuto
 
 _Ce Readme présente en 3 étapes la démarche qui a permis de créer et d'intégrer Zenbot aux plate-formes [Messenger](https://www.messenger.com/) et [Slack](https://slack.com)._
 
@@ -28,7 +37,7 @@ Ce token servira par la suite à légitimer toute les actions de votre webhook e
 Conservez le précieusement et ne le divulguez qu'aux personnes de confiance (ex: l'équipe de développement).
 Nous verons dans la suite de ce readme, comment utiliser ce token.
 
-![alt text](https://github.com/Zenika/Zenbot/blob/dev/docs/custom_integration_token.png "Page Accesss Token")
+![alt text](https://github.com/Zenika/Zenbot/blob/dev/docs/custom_integration_token.png 'Page Accesss Token')
 
 Vous trouverez plus de détails sur la création d'une application Workplace ici: [Creating Apps for Workplace](https://developers.facebook.com/docs/workplace/integrations/custom-integrations/apps).
 
@@ -57,7 +66,7 @@ Pour faire tourner Zenbot nous avons eu besoin d'activer 2 features :
   - une courte description de la commande
   - une instruction d'utilisation (court message expliquant comment utiliser la commande).
 
-  ![alt text](https://github.com/Zenika/Zenbot/blob/dev/docs/slash_commands.png "slash-command /faq")
+  ![alt text](https://github.com/Zenika/Zenbot/blob/dev/docs/slash_commands.png 'slash-command /faq')
 
 Une fois que la configurations de l'application et ses commandes terminées, il vous faudra installer l'application depuis le volet **"Install your app to your workspace"**.
 Vous pourrez également choisir de distribuer votre application sur Slack, au delà de votre espace de travail.
